@@ -1,0 +1,178 @@
+{
+  "city": "Bangalore",
+  "state": "Karnataka",
+  "country": "India",
+  "timezone": "Asia/Kolkata",
+  "emergencyNumbers": {
+    "police": "100",
+    "ambulance": "108",
+    "fire": "101",
+    "women_helpline": "181",
+    "tourist_helpline": "1363",
+    "cyber_crime": "1930",
+    "traffic_police": "103"
+  },
+  "safetyZones": [
+    {
+      "area": "Koramangala",
+      "safetyScore": 8,
+      "dayScore": 9,
+      "nightScore": 7,
+      "notes": "Popular with IT crowd. Lots of cafes, restaurants, PGs. Well-lit main roads. Inner lanes can be dark after 11 PM."
+    },
+    {
+      "area": "Indiranagar",
+      "safetyScore": 8,
+      "dayScore": 9,
+      "nightScore": 7,
+      "notes": "Upscale area. 100 Feet Road is lively till late. Generally safe for solo travelers. Good pub scene."
+    },
+    {
+      "area": "Whitefield",
+      "safetyScore": 7,
+      "dayScore": 8,
+      "nightScore": 6,
+      "notes": "IT hub with lots of tech parks. ITPL area is well-patrolled. Some surrounding areas are underdeveloped."
+    },
+    {
+      "area": "Electronic City",
+      "safetyScore": 7,
+      "dayScore": 8,
+      "nightScore": 5,
+      "notes": "Major IT corridor. Hosur Road traffic is legendary. After work hours, some stretches feel deserted."
+    },
+    {
+      "area": "MG Road / Brigade Road",
+      "safetyScore": 7,
+      "dayScore": 8,
+      "nightScore": 6,
+      "notes": "Central commercial area. Busy during the day. Bar crowds at night — generally safe but stay aware."
+    },
+    {
+      "area": "Majestic / KSR Station",
+      "safetyScore": 5,
+      "dayScore": 6,
+      "nightScore": 3,
+      "notes": "Major bus and railway hub. Very crowded and chaotic. Pickpocketing risk. Avoid walking around at night."
+    },
+    {
+      "area": "Kempegowda Airport (KIA)",
+      "safetyScore": 8,
+      "dayScore": 9,
+      "nightScore": 7,
+      "notes": "Airport is modern and well-secured. Use Ola/Uber or BMTC Vayu Vajra buses. Pre-booked cabs available."
+    },
+    {
+      "area": "HSR Layout",
+      "safetyScore": 8,
+      "dayScore": 9,
+      "nightScore": 7,
+      "notes": "Well-planned residential area popular with young professionals. Lots of food options. Generally safe."
+    },
+    {
+      "area": "Jayanagar",
+      "safetyScore": 8,
+      "dayScore": 9,
+      "nightScore": 7,
+      "notes": "Old residential area, family-friendly. 4th Block shopping complex is a landmark. Very safe."
+    },
+    {
+      "area": "KR Market",
+      "safetyScore": 5,
+      "dayScore": 6,
+      "nightScore": 3,
+      "notes": "Wholesale flower and fruit market. Extremely crowded. Great experience but guard your belongings. Not for night visits."
+    }
+  ],
+  "fareBenchmarks": [
+    {
+      "from": "Kempegowda Airport",
+      "to": "Koramangala",
+      "mode": "cab",
+      "expectedFareMin": 800,
+      "expectedFareMax": 1300,
+      "currency": "INR",
+      "notes": "40-90 min depending on traffic. Ola/Uber 800-1000. Airport Meru 1000-1300. Traffic on Bellary Road is unpredictable."
+    },
+    {
+      "from": "Kempegowda Airport",
+      "to": "Whitefield",
+      "mode": "cab",
+      "expectedFareMin": 700,
+      "expectedFareMax": 1100,
+      "currency": "INR",
+      "notes": "35-70 min. Outer Ring Road route is usually better than going through the city."
+    },
+    {
+      "from": "Kempegowda Airport",
+      "to": "MG Road",
+      "mode": "cab",
+      "expectedFareMin": 700,
+      "expectedFareMax": 1100,
+      "currency": "INR",
+      "notes": "40-80 min. Also consider Vayu Vajra bus (₹250, ~90 min) if not in a rush."
+    },
+    {
+      "from": "Koramangala",
+      "to": "Whitefield",
+      "mode": "cab",
+      "expectedFareMin": 300,
+      "expectedFareMax": 600,
+      "currency": "INR",
+      "notes": "30-60 min via Outer Ring Road. Rush hour makes this a nightmare — allow 90 min."
+    },
+    {
+      "from": "Any",
+      "to": "Any (within Bangalore)",
+      "mode": "auto",
+      "expectedFareMin": 30,
+      "expectedFareMax": 400,
+      "currency": "INR",
+      "notes": "Meter: ₹30 for first 2 km, ₹15/km after. Most drivers use meters in Bangalore (unlike Delhi). Use Ola Auto for fair pricing."
+    },
+    {
+      "from": "Any",
+      "to": "Any (Namma Metro)",
+      "mode": "metro",
+      "expectedFareMin": 10,
+      "expectedFareMax": 60,
+      "currency": "INR",
+      "notes": "Purple and Green lines. Limited coverage but very clean and fast. MG Road, Indiranagar, Whitefield are connected."
+    }
+  ],
+  "scamAlerts": [
+    {
+      "type": "auto_overcharge",
+      "area": "Kempegowda Airport",
+      "description": "Random taxi touts at the airport quote ₹2000+ for city center. Use the official Ola/Uber pickup zone or BMTC Vayu Vajra bus counter inside arrivals.",
+      "severity": "high"
+    },
+    {
+      "type": "auto_no_meter",
+      "area": "Majestic Station",
+      "description": "Autos near Majestic often refuse meters. Walk 200m away from the station to get a metered ride. Or use Ola Auto.",
+      "severity": "medium"
+    },
+    {
+      "type": "fake_discount",
+      "area": "MG Road / Commercial Street",
+      "description": "Shops on Commercial Street claim 'closing down sale' or 'factory price' year-round. Prices are inflated. Negotiate hard or compare online.",
+      "severity": "low"
+    },
+    {
+      "type": "silk_scam",
+      "area": "City-wide",
+      "description": "Some shops sell polyester as 'pure Bangalore silk'. Buy silk only from government emporiums (Cauvery, KSIC) for guaranteed authenticity.",
+      "severity": "medium"
+    }
+  ],
+  "localTips": [
+    "Bangalore traffic is legendary — a 10 km trip can take 90 min during rush hour. Plan accordingly.",
+    "Namma Metro is expanding fast. Use it whenever possible — it's the only way to beat traffic.",
+    "The weather is pleasant year-round (15-35°C). Light layers are enough. Rains June-September.",
+    "Kannada is the local language but English and Hindi are widely understood, especially in IT areas.",
+    "Ola Auto is more reliable than flagging random autos. Meters work here, unlike Delhi.",
+    "Filter coffee > everything. Try Brahmin's Coffee Bar in Basavanagudi for the OG experience.",
+    "Bangalore shuts down early by metro standards. Most restaurants close by 11 PM, bars by 1 AM."
+  ]
+}

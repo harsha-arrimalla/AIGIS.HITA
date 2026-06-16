@@ -1,0 +1,184 @@
+{
+  "city": "Delhi",
+  "state": "Delhi NCR",
+  "country": "India",
+  "timezone": "Asia/Kolkata",
+  "emergencyNumbers": {
+    "police": "100",
+    "ambulance": "102",
+    "fire": "101",
+    "women_helpline": "181",
+    "tourist_helpline": "1363",
+    "cyber_crime": "1930",
+    "delhi_police_whatsapp": "9910641064"
+  },
+  "safetyZones": [
+    {
+      "area": "Connaught Place",
+      "safetyScore": 7,
+      "dayScore": 8,
+      "nightScore": 5,
+      "notes": "Central Delhi hub. Busy and well-patrolled during the day. After midnight, the outer circle gets deserted — avoid walking alone."
+    },
+    {
+      "area": "South Delhi (GK, Defence Colony, Hauz Khas)",
+      "safetyScore": 8,
+      "dayScore": 9,
+      "nightScore": 7,
+      "notes": "Affluent residential area. Well-lit, good police presence. Hauz Khas Village gets crowded at night with bar-goers."
+    },
+    {
+      "area": "Karol Bagh",
+      "safetyScore": 6,
+      "dayScore": 7,
+      "nightScore": 4,
+      "notes": "Major shopping area, extremely crowded. Pickpocketing risk. Narrow lanes can feel claustrophobic. Avoid after dark."
+    },
+    {
+      "area": "Paharganj",
+      "safetyScore": 4,
+      "dayScore": 5,
+      "nightScore": 3,
+      "notes": "Backpacker area near New Delhi station. High scam risk, aggressive touts. Solo travelers especially women should be cautious."
+    },
+    {
+      "area": "Chandni Chowk / Old Delhi",
+      "safetyScore": 5,
+      "dayScore": 6,
+      "nightScore": 3,
+      "notes": "Very crowded, narrow lanes, cycle rickshaws. Amazing food but keep valuables hidden. Not safe to walk after 9 PM."
+    },
+    {
+      "area": "IGI Airport Area",
+      "safetyScore": 8,
+      "dayScore": 9,
+      "nightScore": 7,
+      "notes": "Airport is well-secured. Use official taxi counter or Ola/Uber. Avoid random cab offers outside terminal."
+    },
+    {
+      "area": "Dwarka",
+      "safetyScore": 7,
+      "dayScore": 8,
+      "nightScore": 6,
+      "notes": "Planned residential area with metro connectivity. Generally safe. Some sectors feel empty at night."
+    },
+    {
+      "area": "Noida",
+      "safetyScore": 7,
+      "dayScore": 8,
+      "nightScore": 5,
+      "notes": "IT sector is well-lit. Sector 18 for shopping/entertainment. Outskirts and construction zones — avoid at night."
+    },
+    {
+      "area": "Gurugram (Gurgaon)",
+      "safetyScore": 7,
+      "dayScore": 8,
+      "nightScore": 5,
+      "notes": "Cyber City area is safe and well-patrolled. MG Road nightlife area — use cabs. Outer areas have poor infrastructure."
+    },
+    {
+      "area": "New Delhi Railway Station",
+      "safetyScore": 4,
+      "dayScore": 5,
+      "nightScore": 3,
+      "notes": "High scam zone. Fake travel agents, overpriced porters, cab touts. Walk directly to the official prepaid taxi stand."
+    }
+  ],
+  "fareBenchmarks": [
+    {
+      "from": "IGI Airport",
+      "to": "Connaught Place",
+      "mode": "cab",
+      "expectedFareMin": 400,
+      "expectedFareMax": 700,
+      "currency": "INR",
+      "notes": "Ola/Uber 400-550. Delhi Meru cab 500-700. Prepaid taxi at airport counter ~600."
+    },
+    {
+      "from": "IGI Airport",
+      "to": "Gurugram (Cyber City)",
+      "mode": "cab",
+      "expectedFareMin": 350,
+      "expectedFareMax": 600,
+      "currency": "INR",
+      "notes": "25-40 min depending on traffic. NH48 can be jammed during rush hours."
+    },
+    {
+      "from": "IGI Airport",
+      "to": "Noida",
+      "mode": "cab",
+      "expectedFareMin": 700,
+      "expectedFareMax": 1100,
+      "currency": "INR",
+      "notes": "45-75 min. Route goes through central Delhi. Late night is faster."
+    },
+    {
+      "from": "New Delhi Station",
+      "to": "Connaught Place",
+      "mode": "auto",
+      "expectedFareMin": 30,
+      "expectedFareMax": 80,
+      "currency": "INR",
+      "notes": "2 km, 10 min. Autos will quote 150+. Walk or use metro (1 stop)."
+    },
+    {
+      "from": "Any",
+      "to": "Any (within Delhi)",
+      "mode": "metro",
+      "expectedFareMin": 10,
+      "expectedFareMax": 60,
+      "currency": "INR",
+      "notes": "Delhi Metro is the best transit option. Token fare ₹10-60. Smart card recommended."
+    },
+    {
+      "from": "Any",
+      "to": "Any (within Delhi)",
+      "mode": "auto",
+      "expectedFareMin": 25,
+      "expectedFareMax": 400,
+      "currency": "INR",
+      "notes": "Meter rate: ₹25 for first 1.5 km, then ₹8/km. Most drivers refuse meter — negotiate hard."
+    }
+  ],
+  "scamAlerts": [
+    {
+      "type": "fake_tourism_office",
+      "area": "Paharganj / New Delhi Station",
+      "description": "Fake 'Government Tourism Office' shops near the station. They'll rebook your hotel or train at inflated prices. Only use tourism.gov.in or the official counter inside the station.",
+      "severity": "high"
+    },
+    {
+      "type": "auto_overcharge",
+      "area": "IGI Airport",
+      "description": "Taxi/auto touts outside the terminal quote 3-5x. Use the official prepaid taxi counter inside arrivals, or book Ola/Uber from the designated pickup zone.",
+      "severity": "high"
+    },
+    {
+      "type": "gem_scam",
+      "area": "Connaught Place",
+      "description": "Someone 'befriends' you and takes you to a shop to buy gems/carpets to 'export for profit'. It's a scam — the goods are worthless.",
+      "severity": "medium"
+    },
+    {
+      "type": "closed_attraction",
+      "area": "City-wide",
+      "description": "Drivers/touts say your destination is 'closed today' and offer alternatives (their commission spots). Always verify independently — call the place or check Google.",
+      "severity": "medium"
+    },
+    {
+      "type": "rigged_meter",
+      "area": "City-wide",
+      "description": "Some auto meters run fast (rigged). Compare with Google Maps estimated fare. If the fare seems absurd, note the auto number and report to 1095.",
+      "severity": "medium"
+    }
+  ],
+  "localTips": [
+    "Delhi Metro is your best friend — clean, cheap, safe, and covers most tourist areas",
+    "Download the DMRC app for metro routes and timings",
+    "Carry a scarf/mask — air quality can be poor, especially Oct-Feb",
+    "Street food is incredible but stick to busy stalls with high turnover. Avoid pre-cut fruit.",
+    "Peak traffic: 8-10 AM and 5-8 PM. The city genuinely gridlocks. Plan accordingly.",
+    "Hindi is primary but English works in South Delhi, airports, and hotels",
+    "Uber/Ola work well. Always share your ride status with someone you trust."
+  ]
+}

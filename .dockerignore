@@ -1,0 +1,45 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Hita — Docker ignore (shared by all Dockerfiles via root context)
+# ─────────────────────────────────────────────────────────────────────────────
+
+node_modules/
+.next/
+dist/
+.turbo/
+.expo/
+.git/
+.gitignore
+
+# Build artifacts
+*.tsbuildinfo
+
+# Environment (secrets passed at runtime, not baked in)
+.env
+.env.local
+.env.production
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Dev files
+*.md
+!README.md
+tests/
+**/*.test.ts
+**/*.spec.ts
+vitest.config.ts
+.agents/
+.copilot/
+claude/
+notion/
+spotify/
+stripe/
+superhuman/
+airbnb/
+apps/mobile/
+skills-lock.json

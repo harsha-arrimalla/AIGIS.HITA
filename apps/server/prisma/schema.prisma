@@ -1,0 +1,305 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// -------------------------------------------------------------------------- //
+//                              USERS & AUTH                                   //
+// -------------------------------------------------------------------------- //
+
+model User {
+  id                String              @id @default(uuid())
+  email             String              @unique
+  name              String?
+  gender            String?
+  phone             String?
+  preferredLanguage String              @default("en")
+  travelStyle       String?
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+
+  sessions          Session[]
+  credits           UserCredits?
+  creditTransactions CreditTransaction[]
+  memories          UserMemory[]
+  savedPlaces       SavedPlace[]
+  trustedContacts   TrustedContact[]
+  trips             Trip[]
+
+  @@index([email])
+}
+
+model Session {
+  id            String    @id @default(uuid())
+  userId        String?
+  city          String?
+  startedAt     DateTime  @default(now())
+  lastMessageAt DateTime  @default(now())
+  messageCount  Int       @default(0)
+  context       Json      @default("{}")
+
+  user          User?     @relation(fields: [userId], references: [id])
+  messages      Message[]
+
+  @@index([userId])
+}
+
+// -------------------------------------------------------------------------- //
+//                          CONVERSATIONS & MEMORY                             //
+// -------------------------------------------------------------------------- //
+
+model Message {
+  id         String   @id @default(uuid())
+  sessionId  String
+  role       MessageRole
+  content    String
+  intent     String?
+  entities   Json?
+  agentsUsed String[]
+  latencyMs  Int?
+  createdAt  DateTime @default(now())
+
+  session    Session  @relation(fields: [sessionId], references: [id])
+
+  @@index([sessionId])
+  @@index([createdAt])
+}
+
+enum MessageRole {
+  user
+  assistant
+  system
+}
+
+model UserMemory {
+  id        String   @id @default(uuid())
+  userId    String
+  key       String
+  value     String
+  source    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, key])
+  @@index([userId])
+}
+
+// -------------------------------------------------------------------------- //
+//                              TRIPS & PLACES                                 //
+// -------------------------------------------------------------------------- //
+
+model Trip {
+  id          String    @id @default(uuid())
+  userId      String
+  fromPlace   String
+  toPlace     String
+  mode        String?
+  fare        Float?
+  currency    String    @default("INR")
+  startedAt   DateTime  @default(now())
+  completedAt DateTime?
+  status      TripStatus @default(ACTIVE)
+
+  user        User      @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+}
+
+enum TripStatus {
+  ACTIVE
+  COMPLETED
+  CANCELLED
+}
+
+model SavedPlace {
+  id        String   @id @default(uuid())
+  userId    String
+  name      String
+  lat       Float
+  lng       Float
+  city      String?
+  category  String?
+  notes     String?
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+}
+
+model TrustedContact {
+  id           String   @id @default(uuid())
+  userId       String
+  name         String
+  phone        String
+  relationship String
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+
+  user         User     @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+}
+
+// -------------------------------------------------------------------------- //
+//                            SAFETY & CITY DATA                               //
+// -------------------------------------------------------------------------- //
+
+model SafetyZone {
+  id          String   @id @default(uuid())
+  city        String
+  area        String
+  safetyScore Int
+  dayScore    Int
+  nightScore  Int
+  notes       String?
+  updatedAt   DateTime @updatedAt
+
+  @@unique([city, area])
+  @@index([city])
+}
+
+model EmergencyContact {
+  id      String @id @default(uuid())
+  city    String
+  service String
+  number  String
+  notes   String?
+
+  @@index([city])
+}
+
+model ScamAlert {
+  id          String       @id @default(uuid())
+  city        String
+  type        String
+  area        String?
+  description String
+  severity    ScamSeverity
+  isActive    Boolean      @default(true)
+  createdAt   DateTime     @default(now())
+
+  @@index([city])
+}
+
+enum ScamSeverity {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+model FareBenchmark {
+  id              String   @id @default(uuid())
+  city            String
+  fromArea        String
+  toArea          String
+  mode            String
+  expectedFareMin Float
+  expectedFareMax Float
+  currency        String   @default("INR")
+  updatedAt       DateTime @updatedAt
+
+  @@index([city])
+  @@index([city, fromArea, toArea])
+}
+
+// -------------------------------------------------------------------------- //
+//                          EMOTIONAL SUPPORT DATA                             //
+// -------------------------------------------------------------------------- //
+
+model Affirmation {
+  id       String @id @default(uuid())
+  category String
+  text     String
+  language String @default("en")
+
+  @@index([category])
+}
+
+model EmotionalScript {
+  id       String @id @default(uuid())
+  trigger  String
+  response String
+  category String
+  priority Int    @default(0)
+
+  @@index([trigger])
+  @@index([category])
+}
+
+// -------------------------------------------------------------------------- //
+//                               CREDITS                                       //
+// -------------------------------------------------------------------------- //
+
+model UserCredits {
+  id      String @id @default(uuid())
+  userId  String @unique
+  balance Int    @default(12)
+
+  user    User   @relation(fields: [userId], references: [id])
+}
+
+model CreditTransaction {
+  id          String            @id @default(uuid())
+  userId      String
+  amount      Int
+  type        CreditTransactionType
+  description String?
+  razorpayId  String?
+  createdAt   DateTime          @default(now())
+
+  user        User              @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([createdAt])
+}
+
+enum CreditTransactionType {
+  PURCHASE
+  USAGE
+  BONUS
+  REFUND
+}
+
+// -------------------------------------------------------------------------- //
+//                              OPERATIONS                                     //
+// -------------------------------------------------------------------------- //
+
+model FeatureFlag {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  enabled   Boolean  @default(false)
+  metadata  Json?
+  updatedAt DateTime @updatedAt
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  userId    String?
+  action    String
+  resource  String
+  details   Json?
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([action])
+  @@index([createdAt])
+}
+
+model ApiUsageLog {
+  id          String   @id @default(uuid())
+  service     String
+  endpoint    String
+  statusCode  Int?
+  latencyMs   Int?
+  cost        Float?
+  createdAt   DateTime @default(now())
+
+  @@index([service])
+  @@index([createdAt])
+}

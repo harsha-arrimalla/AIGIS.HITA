@@ -1,0 +1,182 @@
+{
+  "city": "Hyderabad",
+  "state": "Telangana",
+  "country": "India",
+  "timezone": "Asia/Kolkata",
+  "emergencyNumbers": {
+    "police": "100",
+    "ambulance": "108",
+    "fire": "101",
+    "women_helpline": "181",
+    "tourist_helpline": "1363",
+    "cyber_crime": "1930"
+  },
+  "safetyZones": [
+    {
+      "area": "Banjara Hills",
+      "safetyScore": 8,
+      "dayScore": 9,
+      "nightScore": 7,
+      "notes": "Upscale area, well-patrolled. Busy roads during day. Quieter after 11 PM."
+    },
+    {
+      "area": "Jubilee Hills",
+      "safetyScore": 8,
+      "dayScore": 9,
+      "nightScore": 7,
+      "notes": "Affluent residential area. Generally safe. Some isolated stretches at night."
+    },
+    {
+      "area": "Hitech City",
+      "safetyScore": 8,
+      "dayScore": 9,
+      "nightScore": 7,
+      "notes": "IT corridor, well-lit and busy until late. Metro connectivity is good."
+    },
+    {
+      "area": "Gachibowli",
+      "safetyScore": 7,
+      "dayScore": 8,
+      "nightScore": 6,
+      "notes": "IT hub with good infrastructure. Some areas under construction can feel isolated."
+    },
+    {
+      "area": "Secunderabad",
+      "safetyScore": 6,
+      "dayScore": 7,
+      "nightScore": 5,
+      "notes": "Crowded market areas. Be alert in the station area, especially at night."
+    },
+    {
+      "area": "Old City / Charminar",
+      "safetyScore": 5,
+      "dayScore": 7,
+      "nightScore": 4,
+      "notes": "Very crowded during the day. Narrow lanes. Avoid walking alone after dark. Keep valuables hidden."
+    },
+    {
+      "area": "Shamshabad / Airport Area",
+      "safetyScore": 7,
+      "dayScore": 8,
+      "nightScore": 6,
+      "notes": "Airport is well-secured. Surrounding area is sparse. Use pre-booked cabs at night."
+    },
+    {
+      "area": "Kukatpally",
+      "safetyScore": 6,
+      "dayScore": 7,
+      "nightScore": 5,
+      "notes": "Residential and commercial mix. Busy but some poorly lit stretches."
+    },
+    {
+      "area": "Madhapur",
+      "safetyScore": 8,
+      "dayScore": 9,
+      "nightScore": 7,
+      "notes": "IT area with lots of restaurants and nightlife. Generally safe and well-lit."
+    },
+    {
+      "area": "LB Nagar",
+      "safetyScore": 5,
+      "dayScore": 6,
+      "nightScore": 4,
+      "notes": "Outer area. Less police presence at night. Use cabs for late travel."
+    }
+  ],
+  "fareBenchmarks": [
+    {
+      "from": "Airport (Shamshabad)",
+      "to": "Hitech City",
+      "mode": "cab",
+      "expectedFareMin": 700,
+      "expectedFareMax": 1100,
+      "currency": "INR",
+      "notes": "Ola/Uber is 700-900. Prepaid taxi at airport is 900-1100."
+    },
+    {
+      "from": "Airport (Shamshabad)",
+      "to": "Banjara Hills",
+      "mode": "cab",
+      "expectedFareMin": 650,
+      "expectedFareMax": 1000,
+      "currency": "INR",
+      "notes": "30-45 min depending on traffic. Surge pricing can push it to 1200+."
+    },
+    {
+      "from": "Airport (Shamshabad)",
+      "to": "Secunderabad Station",
+      "mode": "cab",
+      "expectedFareMin": 800,
+      "expectedFareMax": 1200,
+      "currency": "INR",
+      "notes": "45-60 min. Heavy traffic on NH44 during rush hours."
+    },
+    {
+      "from": "Hitech City",
+      "to": "Charminar",
+      "mode": "cab",
+      "expectedFareMin": 350,
+      "expectedFareMax": 550,
+      "currency": "INR",
+      "notes": "40-60 min. Traffic-heavy route."
+    },
+    {
+      "from": "Ameerpet",
+      "to": "Hitech City",
+      "mode": "metro",
+      "expectedFareMin": 30,
+      "expectedFareMax": 60,
+      "currency": "INR",
+      "notes": "Blue line metro. 20 min, no traffic. Best option."
+    },
+    {
+      "from": "Any",
+      "to": "Any (within city)",
+      "mode": "auto",
+      "expectedFareMin": 30,
+      "expectedFareMax": 300,
+      "currency": "INR",
+      "notes": "Minimum fare 30. Per km ~15-20. Always negotiate or use meter. Common scam: refusing meter."
+    }
+  ],
+  "scamAlerts": [
+    {
+      "type": "auto_overcharge",
+      "area": "Airport",
+      "description": "Auto drivers at the airport often quote 2-3x the normal fare. Use Ola/Uber or the prepaid taxi counter inside the terminal.",
+      "severity": "high"
+    },
+    {
+      "type": "auto_overcharge",
+      "area": "Secunderabad Station",
+      "description": "Auto drivers near the station frequently refuse meters and quote inflated prices. Walk 100m away from the station to get a fair fare.",
+      "severity": "medium"
+    },
+    {
+      "type": "fake_tour_guide",
+      "area": "Charminar",
+      "description": "Self-appointed guides at Charminar offering 'special access'. There's no special access. Politely decline.",
+      "severity": "low"
+    },
+    {
+      "type": "gem_scam",
+      "area": "Laad Bazaar",
+      "description": "Some shops in Laad Bazaar sell fake pearls as real Hyderabadi pearls. Buy only from certified shops. Real pearls feel gritty when rubbed against teeth.",
+      "severity": "medium"
+    },
+    {
+      "type": "hotel_commission",
+      "area": "City-wide",
+      "description": "Cab/auto drivers recommending specific hotels or restaurants usually get commission. Stick to your pre-booked accommodation.",
+      "severity": "low"
+    }
+  ],
+  "localTips": [
+    "Hyderabad metro is clean, cheap, and safe — use it whenever possible",
+    "Biryani tip: Paradise is touristy but decent. Locals prefer Bawarchi or Shah Ghouse",
+    "Google Maps works well here. Download offline maps just in case",
+    "Water: always drink bottled. Check the seal is intact",
+    "Peak traffic hours: 8-10 AM and 5-8 PM. Plan around these",
+    "Telugu and Hindi are widely spoken. English works in IT areas and malls"
+  ]
+}

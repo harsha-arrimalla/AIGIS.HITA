@@ -1,0 +1,48 @@
+{
+  "name": "@hita/mobile",
+  "version": "1.0.0",
+  "private": true,
+  "main": "expo-router/entry",
+  "scripts": {
+    "dev": "expo start",
+    "build:android": "eas build --platform android",
+    "build:ios": "eas build --platform ios",
+    "typecheck": "tsc --noEmit",
+    "lint": "expo lint",
+    "clean": "rm -rf .expo",
+    "android": "expo run:android",
+    "ios": "expo run:ios"
+  },
+  "dependencies": {
+    "@expo-google-fonts/dm-sans": "^0.4.2",
+    "@expo-google-fonts/jetbrains-mono": "^0.4.1",
+    "@expo-google-fonts/space-grotesk": "^0.4.1",
+    "@gorhom/bottom-sheet": "^5.2.14",
+    "@hita/shared": "workspace:*",
+    "@supabase/supabase-js": "^2.104.1",
+    "expo": "~53.0.0",
+    "expo-blur": "~14.1.5",
+    "expo-image": "~2.4.1",
+    "expo-linear-gradient": "^56.0.4",
+    "expo-location": "~18.1.0",
+    "expo-router": "~5.1.11",
+    "expo-secure-store": "~14.2.0",
+    "expo-status-bar": "~2.2.0",
+    "nativewind": "^4.1.0",
+    "react": "^19.0.0",
+    "react-native": "^0.79.6",
+    "react-native-gesture-handler": "~2.24.0",
+    "react-native-maps": "1.20.1",
+    "react-native-reanimated": "~3.17.5",
+    "react-native-safe-area-context": "^5.4.0",
+    "react-native-screens": "^4.11.1",
+    "react-native-svg": "^15.15.5",
+    "react-native-web": "~0.20.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.14",
+    "babel-plugin-module-resolver": "^5.0.3",
+    "tailwindcss": "^4.1.0",
+    "typescript": "^5.8.3"
+  }
+}
