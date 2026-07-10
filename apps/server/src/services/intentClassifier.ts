@@ -16,6 +16,7 @@ export type Intent =
   | "EMOTIONAL"
   | "FARE"
   | "TRIP_PLAN"
+  | "FOOD"
   | "GENERAL";
 
 export interface ClassificationResult {
@@ -85,6 +86,7 @@ function isValidIntent(intent: string): intent is Intent {
     "EMOTIONAL",
     "FARE",
     "TRIP_PLAN",
+    "FOOD",
     "GENERAL",
   ];
   return validIntents.includes(intent as Intent);

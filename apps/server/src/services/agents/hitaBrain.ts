@@ -254,6 +254,20 @@ ${d.groundingTechnique ? `- Grounding technique: ${d.groundingTechnique}` : ""}
 ${d.shouldEscalate ? `- IMPORTANT: ${d.escalationReason}` : ""}`;
     }
 
+    case "swiggy": {
+      if (d.needsAuth) {
+        return `### Swiggy (${d.service || "food"})
+The user has NOT linked their Swiggy account yet, so no order/booking was made.
+${d.connectUrl ? `Tell them to link Swiggy using this exact link (share it verbatim): ${d.connectUrl}` : "They need to sign in to Hita first, then link Swiggy from settings."}`;
+      }
+      if (d.error) {
+        return `### Swiggy (${d.service || "food"})\nThe Swiggy request failed: ${d.error}\nApologise briefly and offer to retry.`;
+      }
+      return `### Swiggy (${d.service || "food"})
+Result of acting on the user's linked Swiggy account (relay this faithfully — statuses, prices, and confirmations below are real):
+${d.reply}`;
+    }
+
     default:
       return `### ${agent}\n${JSON.stringify(data, null, 2)}`;
   }
@@ -272,6 +286,7 @@ function generateSuggestions(intent: string, agentOutputs: Record<string, unknow
     EMOTIONAL: ["Talk more", "Find a safe place nearby", "Call someone I trust"],
     FARE: ["Find cheaper options", "Report overcharging", "Book a ride"],
     TRIP_PLAN: ["Check weather", "Find restaurants", "Safety tips"],
+    FOOD: ["Track my order", "Order something else", "Book a table"],
     GENERAL: ["Help me get around", "Check safety", "Find nearby places"],
   };
 

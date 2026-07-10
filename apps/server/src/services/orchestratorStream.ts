@@ -20,6 +20,7 @@ import { safetyAgent } from "./agents/safetyAgent.js";
 import { transitAgent } from "./agents/transitAgent.js";
 import { fareGuard } from "./agents/fareGuard.js";
 import { heartAgent } from "./agents/heartAgent.js";
+import { swiggyAgent } from "./agents/swiggyAgent.js";
 import { getOrCreateConversation, saveMessage as dbSaveMessage } from "../lib/supabase.js";
 
 export interface SSEEvent {
@@ -149,6 +150,7 @@ function getDispatchStatus(intent: Intent): string {
     EMOTIONAL: "I'm here for you...",
     FARE: "Checking fair prices...",
     TRIP_PLAN: "Planning your trip...",
+    FOOD: "Checking Swiggy...",
     GENERAL: "Thinking...",
   };
   return map[intent] || "Thinking...";
@@ -234,6 +236,11 @@ async function dispatchAgents(
       }
       promises.push(geoAgent.run({ query: userMessage, userLat, userLng, city: city || undefined }, context).then((r) => { agentOutputs.geo = r; agentsUsed.push("geoAgent"); }));
       await runAgentsParallel(promises);
+      break;
+    }
+    case "FOOD": {
+      agentOutputs.swiggy = await swiggyAgent.run({ message: userMessage, action: entities.action }, context);
+      agentsUsed.push("swiggyAgent");
       break;
     }
     default:

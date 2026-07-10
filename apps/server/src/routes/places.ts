@@ -7,6 +7,7 @@
 
 import { FastifyInstance } from "fastify";
 import { getPlaceDetails, findNearbyPlaces } from "../services/integrations/googlePlaces.js";
+import { reverseGeocode } from "../services/integrations/nominatim.js";
 import { callGemini } from "../services/llm.js";
 
 const placeInsightPrompt = (
@@ -31,6 +32,64 @@ Current hour: ${hour}:00
 Return ONLY valid JSON, no markdown.`;
 
 export async function placesRoute(server: FastifyInstance) {
+  server.get<{ Querystring: { lat: string; lng: string } }>(
+    "/places/nearby",
+    {
+      schema: {
+        querystring: {
+          type: "object",
+          required: ["lat", "lng"],
+          properties: {
+            lat: { type: "string" },
+            lng: { type: "string" },
+          },
+        },
+      },
+    },
+    async (request, reply) => {
+      const lat = Number(request.query.lat);
+      const lng = Number(request.query.lng);
+      if (!Number.isFinite(lat) || !Number.isFinite(lng) || Math.abs(lat) > 90 || Math.abs(lng) > 180) {
+        return reply.code(400).send({ error: "Invalid coordinates" });
+      }
+
+      try {
+        const [location, attractions, food] = await Promise.all([
+          reverseGeocode(lat, lng).catch(() => null),
+          findNearbyPlaces(lat, lng, "tourist_attraction", 5000).catch(() => []),
+          findNearbyPlaces(lat, lng, "restaurant", 3000).catch(() => []),
+        ]);
+
+        const seen = new Set<string>();
+        const places = [...attractions, ...food]
+          .filter((p) => {
+            if (!p.photoUrl || !p.rating || seen.has(p.placeId)) return false;
+            seen.add(p.placeId);
+            return true;
+          })
+          .slice(0, 8)
+          .map((p) => ({
+            placeId: p.placeId,
+            name: p.name,
+            address: p.address,
+            rating: p.rating,
+            totalRatings: p.totalRatings,
+            photoUrl: p.photoUrl,
+            isOpen: p.isOpen,
+          }));
+
+        return {
+          city: location?.city ?? null,
+          state: location?.state ?? null,
+          places,
+        };
+      } catch (err) {
+        request.log.error(err, "Failed to fetch nearby places");
+        return reply.code(500).send({ error: "Failed to fetch nearby places" });
+      }
+    }
+  );
+
   server.get<{ Params: { placeId: string }; Querystring: { lat?: string; lng?: string } }>(
     "/places/:placeId",
     {

@@ -2,6 +2,8 @@ import "dotenv/config";
 import Fastify from "fastify";
 import cors from "@fastify/cors";
 import helmet from "@fastify/helmet";
+import swagger from "@fastify/swagger";
+import swaggerUI from "@fastify/swagger-ui";
 import rawBody from "fastify-raw-body";
 import { healthRoute } from "./routes/health.js";
 import { chatRoute } from "./routes/chat.js";
@@ -10,6 +12,7 @@ import { authRoute } from "./routes/auth.js";
 import { creditsRoute } from "./routes/credits.js";
 import { placesRoute } from "./routes/places.js";
 import { conversationsRoute } from "./routes/conversations.js";
+import { integrationsRoute } from "./routes/integrations.js";
 
 // -------------------------------------------------------------------------- //
 //                          ALLOWED ORIGINS                                     //
@@ -47,6 +50,25 @@ async function start() {
     credentials: true,
   });
 
+  // Swagger documentation
+  await server.register(swagger, {
+    swagger: {
+      info: {
+        title: "Hita API",
+        description: "AI guardian companion backend API",
+        version: "1.0.0",
+      },
+      host: `localhost:${Number(process.env.PORT) || 3000}`,
+      schemes: process.env.NODE_ENV === "production" ? ["https"] : ["http"],
+      consumes: ["application/json"],
+      produces: ["application/json"],
+    },
+  });
+
+  await server.register(swaggerUI, {
+    routePrefix: "/docs",
+  });
+
   // Request ID + user context in logs
   server.addHook("onRequest", async (request) => {
     request.log = request.log.child({
@@ -62,6 +84,21 @@ async function start() {
   await server.register(creditsRoute);
   await server.register(placesRoute);
   await server.register(conversationsRoute);
+  await server.register(integrationsRoute);
+
+  // Root endpoint
+  server.get("/", async () => {
+    return {
+      message: "Hita API",
+      version: "1.0.0",
+      description: "AI guardian companion backend",
+      endpoints: {
+        docs: "/docs",
+        health: "/health",
+        healthReady: "/health/ready",
+      },
+    };
+  });
 
   // Start
   const port = Number(process.env.PORT) || 3000;

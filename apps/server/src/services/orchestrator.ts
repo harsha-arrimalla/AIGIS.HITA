@@ -23,6 +23,7 @@ import { safetyAgent } from "./agents/safetyAgent.js";
 import { transitAgent } from "./agents/transitAgent.js";
 import { fareGuard } from "./agents/fareGuard.js";
 import { heartAgent } from "./agents/heartAgent.js";
+import { swiggyAgent } from "./agents/swiggyAgent.js";
 import { getOrCreateConversation, saveMessage as dbSaveMessage, loadMessages as dbLoadMessages } from "../lib/supabase.js";
 
 export async function orchestrate(request: ChatRequest): Promise<ChatResponse> {
@@ -280,6 +281,15 @@ async function dispatchAgents(
       );
 
       await runAgentsParallel(promises);
+      break;
+    }
+
+    case "FOOD": {
+      agentOutputs.swiggy = await swiggyAgent.run(
+        { message: userMessage, action: entities.action },
+        context
+      );
+      agentsUsed.push("swiggyAgent");
       break;
     }
 
