@@ -13,9 +13,9 @@ import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
 import { Feather } from "@expo/vector-icons";
 import { Image } from "expo-image";
-import * as SecureStore from "expo-secure-store";
+import * as SecureStore from "@/lib/storage";
 import * as Location from "expo-location";
-import MapView, { Marker, Region } from "react-native-maps";
+import MapView, { Marker } from "@/components/MapView";
 import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetBackgroundProps,
@@ -433,12 +433,12 @@ const TRIP_CARDS: CardItem[] = [
 ];
 
 const MAP_STYLE_MUTED = [
-  { elementType: "geometry", stylers: [{ color: "#ECEBE6" }] },
-  { elementType: "labels.text.fill", stylers: [{ color: "#8B8A84" }] },
-  { elementType: "labels.text.stroke", stylers: [{ color: "#ECEBE6" }] },
-  { featureType: "poi", elementType: "geometry", stylers: [{ color: "#DEDCD4" }] },
-  { featureType: "road", elementType: "geometry", stylers: [{ color: "#D9D6CD" }] },
-  { featureType: "water", elementType: "geometry", stylers: [{ color: "#CFDADF" }] },
+  { elementType: "geometry", stylers: [{ color: "#F7E7DC" }] },
+  { elementType: "labels.text.fill", stylers: [{ color: "#9C8896" }] },
+  { elementType: "labels.text.stroke", stylers: [{ color: "#F7E7DC" }] },
+  { featureType: "poi", elementType: "geometry", stylers: [{ color: "#EAD6CA" }] },
+  { featureType: "road", elementType: "geometry", stylers: [{ color: "#E5CFC2" }] },
+  { featureType: "water", elementType: "geometry", stylers: [{ color: "#EFDCD2" }] },
 ];
 
 function distanceKm(a: { latitude: number; longitude: number }, b: { latitude: number; longitude: number }) {
@@ -516,7 +516,7 @@ function trustStyle(chip: TrustChip) {
   if (chip === "Community-flagged") {
     return { backgroundColor: "rgba(146, 79, 35, 0.14)", color: "#8A4A1A" };
   }
-  return { backgroundColor: "rgba(42, 42, 42, 0.08)", color: "#444444" };
+  return { backgroundColor: "rgba(42, 42, 42, 0.08)", color: "#4A3648" };
 }
 
 function SheetBackground({ style }: BottomSheetBackgroundProps) {
@@ -652,7 +652,7 @@ function PlaceDetailSheet({
 
           <View style={styles.detailActionsRow}>
             <Pressable style={styles.detailSaveButton} onPress={() => onSave(place.id)}>
-              <Feather name="heart" size={14} color={isSaved ? "#FFFFFF" : "#1F1F1F"} />
+              <Feather name="heart" size={14} color={isSaved ? "#FFFFFF" : "#2B1B2C"} />
               <Text style={[styles.detailSaveText, isSaved && styles.detailSaveTextActive]}>
                 {isSaved ? "Saved" : "Save"}
               </Text>
@@ -708,17 +708,17 @@ function HomeStateView({
             onPress={runSearch}
             style={({ pressed }) => [styles.searchPill, pressed && styles.searchPillPressed]}
           >
-            <Feather name="search" size={16} color="#5E5E5E" />
+            <Feather name="search" size={16} color="#6B5668" />
             <TextInput
               value={query}
               onChangeText={setQuery}
               placeholder="Where to next? Ask Hita anything"
-              placeholderTextColor="#8B8B8B"
+              placeholderTextColor="#9C8896"
               style={styles.searchInput}
               onSubmitEditing={runSearch}
               returnKeyType="search"
             />
-            <Feather name="arrow-up-right" size={16} color="#3A3A3A" />
+            <Feather name="arrow-up-right" size={16} color="#3D2B3E" />
           </Pressable>
         </BlurView>
       </View>
@@ -748,7 +748,7 @@ function HomeStateView({
               </View>
               {HERO.trust ? (
                 <View style={[styles.trustChipCompact, { backgroundColor: "rgba(255,255,255,0.2)" }]}> 
-                  <Text style={[styles.trustText, { color: "#F2F2F2" }]}>{HERO.trust}</Text>
+                  <Text style={[styles.trustText, { color: "#FBEFE7" }]}>{HERO.trust}</Text>
                 </View>
               ) : null}
             </View>
@@ -778,7 +778,7 @@ function HomeStateView({
                   toggleSave(HERO.id);
                 }}
               >
-                <Feather name="heart" size={16} color={saved.has(HERO.id) ? "#FFFFFF" : "#1C1C1C"} />
+                <Feather name="heart" size={16} color={saved.has(HERO.id) ? "#FFFFFF" : "#241726"} />
                 <Text style={[styles.heroSaveText, saved.has(HERO.id) && styles.heroSaveTextActive]}>
                   {saved.has(HERO.id) ? "Saved" : "Save"}
                 </Text>
@@ -807,7 +807,7 @@ function HomeStateView({
               <Text style={styles.rowTitle}>{row.title}</Text>
               <View style={styles.rowChevron}>
                 <Text style={styles.rowChevronText}>{row.chevronLabel}</Text>
-                <Feather name="chevron-right" size={14} color="#6B6B6B" />
+                <Feather name="chevron-right" size={14} color="#7D6A79" />
               </View>
             </View>
 
@@ -830,7 +830,7 @@ function HomeStateView({
                         }}
                         style={[styles.saveIconButtonOnImage, isSaved && styles.saveIconButtonActive]}
                       >
-                        <Feather name="heart" size={14} color={isSaved ? "#FFFFFF" : "#242424"} />
+                        <Feather name="heart" size={14} color={isSaved ? "#FFFFFF" : "#2B1B2C"} />
                       </Pressable>
                     </View>
 
@@ -889,12 +889,12 @@ function PreDepartureStateView({
           <Text style={styles.preSubtitle}>{trip?.summary ?? "Your briefing is ready."}</Text>
 
           <View style={styles.searchPillCompact}>
-            <Feather name="search" size={16} color="#5E5E5E" />
+            <Feather name="search" size={16} color="#6B5668" />
             <TextInput
               value={query}
               onChangeText={setQuery}
               placeholder="Ask Hita about your upcoming trip"
-              placeholderTextColor="#8B8B8B"
+              placeholderTextColor="#9C8896"
               style={styles.searchInput}
               onSubmitEditing={runSearch}
               returnKeyType="search"
@@ -938,13 +938,13 @@ function TripStateView({
   runSearch: () => void;
   askHita: (message: string) => void;
 }) {
-  const mapRef = useRef<MapView>(null);
+  const mapRef = useRef<any>(null);
   const sheetRef = useRef<BottomSheet>(null);
   const [selectedId, setSelectedId] = useState(TRIP_CARDS[0]?.id ?? "");
   const [vegOnly, setVegOnly] = useState(false);
   const snapPoints = useMemo(() => ["24%", "56%", "90%"], []);
 
-  const region: Region = {
+  const region: any = {
     latitude: 17.365,
     longitude: 78.476,
     latitudeDelta: 0.095,
@@ -985,7 +985,7 @@ function TripStateView({
             <Marker
               key={card.id}
               coordinate={card.coords}
-              pinColor={card.id === selectedId ? "#2D7A5E" : "#888888"}
+              pinColor={card.id === selectedId ? "#2D7A5E" : "#9C8896"}
               onPress={() => focusCard(card)}
             />
           ) : null
@@ -1001,12 +1001,12 @@ function TripStateView({
             </View>
           </View>
           <View style={styles.searchPillCompact}>
-            <Feather name="search" size={16} color="#5E5E5E" />
+            <Feather name="search" size={16} color="#6B5668" />
             <TextInput
               value={query}
               onChangeText={setQuery}
               placeholder="Ask Hita: safe cafes open now"
-              placeholderTextColor="#8B8B8B"
+              placeholderTextColor="#9C8896"
               style={styles.searchInput}
               onSubmitEditing={runSearch}
               returnKeyType="search"
@@ -1347,11 +1347,11 @@ export default function ExploreTab() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: "#F7F7F5",
+    backgroundColor: "#FFF6F0",
   },
   screen: {
     flex: 1,
-    backgroundColor: "#F7F7F5",
+    backgroundColor: "#FFF6F0",
   },
   ambientOrbA: {
     position: "absolute",
@@ -1401,7 +1401,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
     fontFamily: fonts.bodyRegular,
     fontSize: 13,
-    color: "#696969",
+    color: "#7D6A79",
   },
   searchPill: {
     marginTop: 12,
@@ -1486,27 +1486,27 @@ const styles = StyleSheet.create({
     fontFamily: fonts.display,
     fontSize: 28,
     lineHeight: 31,
-    color: "#F7F7F7",
+    color: "#FFF6F0",
   },
   heroCue: {
     marginTop: 4,
     fontFamily: fonts.bodyRegular,
     fontSize: 13,
     lineHeight: 18,
-    color: "#F4F4F4",
+    color: "#FBEFE7",
   },
   heroMeta: {
     marginTop: 8,
     fontFamily: fonts.mono,
     fontSize: 11,
-    color: "#EEEEEE",
+    color: "#F9E9DF",
     letterSpacing: 0.2,
   },
   heroProof: {
     marginTop: 7,
     fontFamily: fonts.bodyRegular,
     fontSize: 11,
-    color: "#DFDFDF",
+    color: "#EAD6CA",
   },
   heroActions: {
     marginTop: 12,
@@ -1529,13 +1529,13 @@ const styles = StyleSheet.create({
     opacity: 0.86,
   },
   heroSaveButtonActive: {
-    backgroundColor: "#1F1F1F",
-    borderColor: "#1F1F1F",
+    backgroundColor: "#2B1B2C",
+    borderColor: "#2B1B2C",
   },
   heroSaveText: {
     fontFamily: fonts.body,
     fontSize: 13,
-    color: "#1C1C1C",
+    color: "#241726",
   },
   heroSaveTextActive: {
     color: "#FFFFFF",
@@ -1544,7 +1544,7 @@ const styles = StyleSheet.create({
     height: 36,
     borderRadius: 999,
     paddingHorizontal: 14,
-    backgroundColor: "#1F1F1F",
+    backgroundColor: "#2B1B2C",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -1577,7 +1577,7 @@ const styles = StyleSheet.create({
   rowChevronText: {
     fontFamily: fonts.bodyRegular,
     fontSize: 12,
-    color: "#6B6B6B",
+    color: "#7D6A79",
   },
   rowList: {
     paddingHorizontal: 14,
@@ -1627,8 +1627,8 @@ const styles = StyleSheet.create({
     borderColor: "rgba(255,255,255,0.9)",
   },
   saveIconButtonActive: {
-    backgroundColor: "#1F1F1F",
-    borderColor: "#1F1F1F",
+    backgroundColor: "#2B1B2C",
+    borderColor: "#2B1B2C",
   },
   tileContentStrip: {
     flex: 1,
@@ -1642,20 +1642,20 @@ const styles = StyleSheet.create({
   tileName: {
     fontFamily: fonts.display,
     fontSize: 17,
-    color: "#1A1A1A",
+    color: "#241726",
   },
   tileMeta: {
     marginTop: 3,
     fontFamily: fonts.mono,
     fontSize: 10,
-    color: "#2A2A2A",
+    color: "#31212F",
     letterSpacing: 0.15,
   },
   tileCue: {
     marginTop: 4,
     fontFamily: fonts.bodyRegular,
     fontSize: 12,
-    color: "#434343",
+    color: "#4A3648",
   },
   trustChipCompact: {
     alignSelf: "flex-start",
@@ -1681,7 +1681,7 @@ const styles = StyleSheet.create({
   stateKicker: {
     fontFamily: fonts.mono,
     fontSize: 11,
-    color: "#5F5F5F",
+    color: "#6B5668",
     letterSpacing: 0.5,
   },
   preTitle: {
@@ -1694,7 +1694,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
     fontFamily: fonts.bodyRegular,
     fontSize: 13,
-    color: "#636363",
+    color: "#6B5668",
   },
   preGrid: {
     marginTop: 16,
@@ -1732,13 +1732,13 @@ const styles = StyleSheet.create({
     marginTop: 3,
     fontFamily: fonts.mono,
     fontSize: 10,
-    color: "#2F2F2F",
+    color: "#31212F",
   },
   preCardCue: {
     marginTop: 5,
     fontFamily: fonts.bodyRegular,
     fontSize: 12,
-    color: "#4E4E4E",
+    color: "#54404F",
   },
   tripRoot: {
     flex: 1,
@@ -1798,7 +1798,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 24,
     borderWidth: 1,
     borderColor: "rgba(215,215,215,0.8)",
-    backgroundColor: "#F4F4F2",
+    backgroundColor: "#FBEFE7",
     overflow: "hidden",
   },
   sheetContent: {
@@ -1840,19 +1840,19 @@ const styles = StyleSheet.create({
     marginTop: 2,
     fontFamily: fonts.mono,
     fontSize: 10,
-    color: "#3F3F3F",
+    color: "#3D2B3E",
   },
   tripCardCue: {
     marginTop: 5,
     fontFamily: fonts.bodyRegular,
     fontSize: 12,
-    color: "#545454",
+    color: "#5C475A",
   },
   tripCardProof: {
     marginTop: 6,
     fontFamily: fonts.bodyRegular,
     fontSize: 11,
-    color: "#646464",
+    color: "#6B5668",
   },
   tripCardFooter: {
     marginTop: 8,
@@ -1867,7 +1867,7 @@ const styles = StyleSheet.create({
     height: 30,
     paddingHorizontal: 11,
     borderRadius: 999,
-    backgroundColor: "#1F1F1F",
+    backgroundColor: "#2B1B2C",
   },
   routeButtonText: {
     color: "#FFFFFF",
@@ -1891,7 +1891,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     fontFamily: fonts.bodyRegular,
     fontSize: 13,
-    color: "#545454",
+    color: "#5C475A",
   },
   vegToggleRow: {
     marginTop: 6,
@@ -1907,13 +1907,13 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255,255,255,0.65)",
   },
   filterChipActive: {
-    backgroundColor: "#1F1F1F",
-    borderColor: "#1F1F1F",
+    backgroundColor: "#2B1B2C",
+    borderColor: "#2B1B2C",
   },
   filterChipText: {
     fontFamily: fonts.body,
     fontSize: 11,
-    color: "#2E2E2E",
+    color: "#31212F",
   },
   filterChipTextActive: {
     color: "#FFFFFF",
@@ -1927,7 +1927,7 @@ const styles = StyleSheet.create({
     height: 34,
     paddingHorizontal: 12,
     borderRadius: 999,
-    backgroundColor: "#1F1F1F",
+    backgroundColor: "#2B1B2C",
   },
   checkinButtonText: {
     color: "#FFFFFF",
@@ -1959,14 +1959,14 @@ const styles = StyleSheet.create({
     marginTop: 4,
     fontFamily: fonts.mono,
     fontSize: 11,
-    color: "#2F2F2F",
+    color: "#31212F",
   },
   detailDescription: {
     marginTop: 10,
     fontFamily: fonts.bodyRegular,
     fontSize: 14,
     lineHeight: 20,
-    color: "#333333",
+    color: "#3D2B3E",
   },
   detailFactBox: {
     marginTop: 10,
@@ -1979,19 +1979,19 @@ const styles = StyleSheet.create({
   detailFactTitle: {
     fontFamily: fonts.display,
     fontSize: 18,
-    color: "#202020",
+    color: "#2B1B2C",
   },
   detailFactText: {
     marginTop: 4,
     fontFamily: fonts.bodyRegular,
     fontSize: 13,
-    color: "#383838",
+    color: "#3D2B3E",
   },
   detailProof: {
     marginTop: 10,
     fontFamily: fonts.bodyRegular,
     fontSize: 12,
-    color: "#4E4E4E",
+    color: "#54404F",
   },
   previewMapWrap: {
     marginTop: 12,
@@ -2026,7 +2026,7 @@ const styles = StyleSheet.create({
   detailSaveText: {
     fontFamily: fonts.body,
     fontSize: 12,
-    color: "#1F1F1F",
+    color: "#2B1B2C",
   },
   detailSaveTextActive: {
     color: "#FFFFFF",
@@ -2035,7 +2035,7 @@ const styles = StyleSheet.create({
     height: 36,
     borderRadius: 999,
     paddingHorizontal: 12,
-    backgroundColor: "#1F1F1F",
+    backgroundColor: "#2B1B2C",
     flexDirection: "row",
     alignItems: "center",
     gap: 5,
@@ -2049,7 +2049,7 @@ const styles = StyleSheet.create({
     height: 36,
     borderRadius: 999,
     paddingHorizontal: 12,
-    backgroundColor: "#1F1F1F",
+    backgroundColor: "#2B1B2C",
     flexDirection: "row",
     alignItems: "center",
     gap: 5,

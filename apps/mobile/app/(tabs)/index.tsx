@@ -163,7 +163,7 @@ export default function ChatsTab() {
       {/* Header */}
       <View style={styles.header}>
         <View style={styles.headerLeft}>
-          <HitaLogo size={22} color={colors.ink} />
+          <HitaLogo size={22} color={colors.coral} />
           <Text style={styles.headerTitle}>hita</Text>
         </View>
         <Pressable
@@ -378,12 +378,12 @@ const styles = StyleSheet.create({
     width: 56,
     height: 56,
     borderRadius: 16,
-    backgroundColor: colors.ink,
+    backgroundColor: colors.coral,
     alignItems: "center",
     justifyContent: "center",
-    shadowColor: "#000",
+    shadowColor: "#FF5A5F",
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.15,
+    shadowOpacity: 0.35,
     shadowRadius: 12,
     elevation: 8,
   },

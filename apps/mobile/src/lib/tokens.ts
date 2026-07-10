@@ -1,41 +1,49 @@
-// Hita mobile design tokens — B&W monochrome matching web
+// Hita mobile design tokens — Sunset Coral, matching web
 export const colors = {
-  // Canvas
-  canvas: "#FFFFFF",
-  surface: "#FAFAFA",
-  tint: "#F7F7F7",
-  hover: "#F5F5F5",
-  pressed: "#EBEBEB",
+  // Canvas — warm cream
+  canvas: "#FFF9F5",
+  surface: "#FFF1E9",
+  tint: "#FFEDE4",
+  hover: "#FFEAE0",
+  pressed: "#F9DDD1",
 
-  // Accent — black monochrome
-  ink: "#222222",
-  inkHover: "#000000",
-  inkLight: "rgba(34, 34, 34, 0.06)",
-  inkMedium: "rgba(34, 34, 34, 0.12)",
+  // Ink — warm plum (text & dark elements)
+  ink: "#2B1B2C",
+  inkHover: "#1C0F1D",
+  inkLight: "rgba(43, 27, 44, 0.06)",
+  inkMedium: "rgba(43, 27, 44, 0.12)",
+
+  // Accent — sunset coral
+  coral: "#FF5A5F",
+  coralHover: "#E8484D",
+  coralTint: "#FFECEC",
+  coralLight: "rgba(255, 90, 95, 0.10)",
+  amber: "#FFB400",
+  amberTint: "#FFF4DB",
 
   // Text
-  textPrimary: "#222222",
-  textSecondary: "#717171",
-  textTertiary: "#B0B0B0",
+  textPrimary: "#2B1B2C",
+  textSecondary: "#7D6A79",
+  textTertiary: "#B5A3B0",
   textInverse: "#FFFFFF",
 
-  // Borders
-  borderHairline: "#EBEBEB",
-  borderSoft: "#DDDDDD",
-  borderStrong: "#B0B0B0",
+  // Borders — warm
+  borderHairline: "#F4E6DD",
+  borderSoft: "#EAD6CA",
+  borderStrong: "#C9AFA3",
 
   // Semantic
-  success: "#222222",
-  warning: "#C13515",
-  danger: "#C13515",
+  success: "#1FA97A",
+  warning: "#FFB400",
+  danger: "#E0484D",
 
   // Legacy compat
-  accent: "#222222",
-  accentHover: "#000000",
-  bgCanvas: "#FFFFFF",
-  bgTint: "#F7F7F7",
+  accent: "#FF5A5F",
+  accentHover: "#E8484D",
+  bgCanvas: "#FFF9F5",
+  bgTint: "#FFEDE4",
   bgRaised: "#FFFFFF",
-  bgMuted: "#F5F5F5",
+  bgMuted: "#FFEAE0",
 } as const;
 
 export const spacing = {
@@ -66,24 +74,24 @@ export const fonts = {
 
 export const shadows = {
   sm: {
-    shadowColor: "#000",
+    shadowColor: "#2B1B2C",
     shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.04,
+    shadowOpacity: 0.05,
     shadowRadius: 3,
     elevation: 1,
   },
   card: {
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.06,
-    shadowRadius: 8,
+    shadowColor: "#FF5A5F",
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.12,
+    shadowRadius: 10,
     elevation: 2,
   },
   lg: {
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 16,
+    shadowColor: "#FF5A5F",
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.18,
+    shadowRadius: 18,
     elevation: 4,
   },
 } as const;

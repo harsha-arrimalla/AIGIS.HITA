@@ -30,7 +30,7 @@ export default function TabLayout() {
             style={StyleSheet.absoluteFill}
           />
         ),
-        tabBarActiveTintColor: colors.ink,
+        tabBarActiveTintColor: colors.coral,
         tabBarInactiveTintColor: colors.textTertiary,
         tabBarLabelStyle: {
           fontSize: 10,

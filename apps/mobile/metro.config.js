@@ -14,4 +14,17 @@ config.watchFolders = [monorepoRoot];
 config.resolver.nodeModulesPaths = [path.resolve(monorepoRoot, "node_modules")];
 config.resolver.disableHierarchicalLookup = true;
 
+// 3. Block react-native-maps on web platform
+config.resolver.resolveRequest = (context, moduleName, platform) => {
+  if (platform === 'web' && moduleName === 'react-native-maps') {
+    // Return the web stub instead
+    return {
+      type: 'sourceFile',
+      filePath: path.resolve(projectRoot, 'src/components/MapView.web.tsx'),
+    };
+  }
+  // Default resolution
+  return context.resolveRequest(context, moduleName, platform);
+};
+
 module.exports = config;

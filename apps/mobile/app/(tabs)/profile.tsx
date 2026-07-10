@@ -292,7 +292,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     paddingVertical: 14,
     borderRadius: 12,
-    backgroundColor: colors.ink,
+    backgroundColor: colors.danger,
   },
   sosIconWrap: {
     width: 20,

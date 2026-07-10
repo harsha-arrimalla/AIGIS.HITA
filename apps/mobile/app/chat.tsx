@@ -189,7 +189,7 @@ function EmptyState({ onSend }: { onSend: (text: string) => void }) {
 
   return (
     <Animated.View style={[styles.emptyState, { opacity: fade }]}>
-      <HitaLogo size={40} color={colors.ink} />
+      <HitaLogo size={40} color={colors.coral} />
       <Text style={styles.emptyTitle}>How can I help?</Text>
       <Text style={styles.emptySubtitle}>
         Ask about safety, directions, weather, or anything about your journey.
@@ -277,7 +277,7 @@ export default function ChatScreen() {
           <Feather name="arrow-left" size={20} color={colors.ink} />
         </Pressable>
         <View style={styles.headerCenter}>
-          <HitaLogo size={18} color={colors.ink} />
+          <HitaLogo size={18} color={colors.coral} />
           <Text style={styles.headerTitle}>hita</Text>
         </View>
         <View style={styles.headerRight}>
@@ -489,7 +489,7 @@ const styles = StyleSheet.create({
     width: 28,
     height: 28,
     borderRadius: 8,
-    backgroundColor: colors.ink,
+    backgroundColor: colors.coral,
     alignItems: "center",
     justifyContent: "center",
     marginRight: 8,
@@ -502,7 +502,7 @@ const styles = StyleSheet.create({
     flexShrink: 1,
   },
   bubbleUser: {
-    backgroundColor: colors.ink,
+    backgroundColor: colors.coral,
     borderBottomRightRadius: 6,
   },
   bubbleAssistant: {
@@ -553,7 +553,7 @@ const styles = StyleSheet.create({
     gap: 5,
   },
   ratingBadge: {
-    backgroundColor: colors.ink,
+    backgroundColor: colors.amber,
     paddingHorizontal: 5,
     paddingVertical: 2,
     borderRadius: 4,
@@ -585,7 +585,7 @@ const styles = StyleSheet.create({
     width: 4,
     height: 4,
     borderRadius: 2,
-    backgroundColor: colors.ink,
+    backgroundColor: colors.coral,
   },
   statusText: {
     fontSize: 12,
@@ -654,7 +654,7 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: colors.ink,
+    backgroundColor: colors.coral,
     alignItems: "center",
     justifyContent: "center",
   },
