@@ -14,39 +14,43 @@
    Ref: design.md — "Hospitality over efficiency"
    ============================================================ */
 @theme {
-  /* === Canvas === */
-  --color-canvas: #FFFFFF;
-  --color-surface: #FAFAFA;
+  /* === Canvas: warm cream === */
+  --color-canvas: #FFF9F5;
+  --color-surface: #FFF1E9;
   --color-raised: #FFFFFF;
-  --color-tint: #F7F7F7;
-  --color-hover: #F5F5F5;
-  --color-pressed: #EBEBEB;
+  --color-tint: #FFEDE4;
+  --color-hover: #FFEAE0;
+  --color-pressed: #F9DDD1;
 
-  /* === Accent: Black (monochrome — used sparingly) === */
-  --color-coral: #222222;
-  --color-coral-hover: #000000;
-  --color-coral-light: rgba(34, 34, 34, 0.06);
-  --color-coral-medium: rgba(34, 34, 34, 0.12);
-  --color-coral-tint: #F5F5F5;
+  /* === Accent: Sunset coral === */
+  --color-coral: #FF5A5F;
+  --color-coral-hover: #E8484D;
+  --color-coral-light: rgba(255, 90, 95, 0.08);
+  --color-coral-medium: rgba(255, 90, 95, 0.16);
+  --color-coral-tint: #FFECEC;
 
-  /* === Text === */
-  --color-ink: #222222;
-  --color-body: #222222;
-  --color-text-secondary: #717171;
-  --color-tertiary: #B0B0B0;
-  --color-ghost: #B0B0B0;
+  /* === Secondary accent: Amber (ratings, badges) === */
+  --color-amber: #FFB400;
+  --color-amber-tint: #FFF4DB;
 
-  /* === Borders === */
-  --color-border-hairline: #EBEBEB;
-  --color-border-soft: #DDDDDD;
-  --color-border-strong: #B0B0B0;
+  /* === Text: warm plum ink === */
+  --color-ink: #2B1B2C;
+  --color-body: #3D2B3E;
+  --color-text-secondary: #7D6A79;
+  --color-tertiary: #B5A3B0;
+  --color-ghost: #C9BAC4;
+
+  /* === Borders: warm === */
+  --color-border-hairline: #F4E6DD;
+  --color-border-soft: #EAD6CA;
+  --color-border-strong: #C9AFA3;
 
   /* === Semantic === */
   --color-on-dark: #ffffff;
   --color-on-coral: #ffffff;
-  --color-success: #222222;
-  --color-warning: #222222;
-  --color-danger: #222222;
+  --color-success: #1FA97A;
+  --color-warning: #FFB400;
+  --color-danger: #E0484D;
 
   /* === Font families === */
   --font-display: "Playfair Display", "Georgia", serif;
@@ -62,18 +66,19 @@
   --radius-pill: 999px;
   --radius-full: 9999px;
 
-  /* === Shadows (design.md shadow-1/2/3) === */
-  --shadow-1: 0 1px 2px rgba(0,0,0,0.04), 0 0 0 0.5px rgba(0,0,0,0.05);
-  --shadow-2: 0 6px 16px rgba(0,0,0,0.08);
-  --shadow-3: 0 12px 32px rgba(0,0,0,0.12);
+  /* === Shadows: warm, softly colored === */
+  --shadow-1: 0 1px 2px rgba(43,27,44,0.05), 0 0 0 0.5px rgba(43,27,44,0.04);
+  --shadow-2: 0 8px 20px rgba(255,90,95,0.10), 0 2px 6px rgba(43,27,44,0.05);
+  --shadow-3: 0 18px 44px rgba(255,90,95,0.16), 0 4px 12px rgba(43,27,44,0.06);
+  --shadow-glow: 0 0 0 4px rgba(255,90,95,0.14);
 
   /* Legacy aliases */
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04), 0 0 0 0.5px rgba(0,0,0,0.05);
-  --shadow-card: 0 6px 16px rgba(0,0,0,0.08);
-  --shadow-elevated: 0 12px 32px rgba(0,0,0,0.12);
+  --shadow-sm: 0 1px 2px rgba(43,27,44,0.05), 0 0 0 0.5px rgba(43,27,44,0.04);
+  --shadow-card: 0 8px 20px rgba(255,90,95,0.10), 0 2px 6px rgba(43,27,44,0.05);
+  --shadow-elevated: 0 18px 44px rgba(255,90,95,0.16), 0 4px 12px rgba(43,27,44,0.06);
   --color-paper: #FFFFFF;
-  --color-border-medium: #DDDDDD;
-  --color-charcoal: #222222;
+  --color-border-medium: #EAD6CA;
+  --color-charcoal: #2B1B2C;
 }
 
 /* ============================================================
@@ -119,24 +124,24 @@
 }
 
 :root {
-  --background: #FFFFFF;
-  --foreground: #222222;
+  --background: #FFF9F5;
+  --foreground: #2B1B2C;
   --card: #FFFFFF;
-  --card-foreground: #222222;
+  --card-foreground: #2B1B2C;
   --popover: #FFFFFF;
-  --popover-foreground: #222222;
-  --primary: #222222;
+  --popover-foreground: #2B1B2C;
+  --primary: #FF5A5F;
   --primary-foreground: #ffffff;
-  --secondary-token: #F7F7F7;
-  --secondary-foreground: #222222;
-  --muted: #F7F7F7;
-  --muted-foreground: #717171;
-  --accent: #F7F7F7;
-  --accent-foreground: #222222;
-  --destructive: #C13515;
-  --border: #EBEBEB;
-  --input: #DDDDDD;
-  --ring: #222222;
+  --secondary-token: #FFEDE4;
+  --secondary-foreground: #2B1B2C;
+  --muted: #FFF1E9;
+  --muted-foreground: #7D6A79;
+  --accent: #FFECEC;
+  --accent-foreground: #2B1B2C;
+  --destructive: #E0484D;
+  --border: #F4E6DD;
+  --input: #EAD6CA;
+  --ring: #FF5A5F;
   --chart-1: #222222;
   --chart-2: #222222;
   --chart-3: #717171;
@@ -195,6 +200,40 @@
 @keyframes fade-up {
   from { opacity: 0; transform: translateY(24px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Sunset redesign: ambient motion --- */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0) rotate(var(--float-rot, 0deg)); }
+  50% { transform: translateY(-14px) rotate(var(--float-rot, 0deg)); }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes ken-burns {
+  from { transform: scale(1) translate(0, 0); }
+  to { transform: scale(1.12) translate(-1.5%, -1%); }
+}
+
+@keyframes blob-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(40px, -30px) scale(1.08); }
+  66% { transform: translate(-30px, 24px) scale(0.95); }
+}
+
+.animate-float-slow { animation: float-slow 6s ease-in-out infinite; }
+.animate-marquee { animation: marquee 36s linear infinite; }
+.animate-marquee:hover { animation-play-state: paused; }
+.animate-blob { animation: blob-drift 14s ease-in-out infinite; }
+.hover-kenburns img { transition: transform 6s cubic-bezier(0.16, 1, 0.3, 1); }
+.hover-kenburns:hover img { transform: scale(1.12); }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float-slow, .animate-marquee, .animate-blob { animation: none; }
+  .hover-kenburns:hover img { transform: none; }
 }
 
 @keyframes fade-up-sm {

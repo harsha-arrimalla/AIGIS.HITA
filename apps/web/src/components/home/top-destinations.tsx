@@ -25,18 +25,20 @@ export function TopDestinations({ onSendPrompt }: TopDestinationsProps) {
           <button
             key={dest.city}
             onClick={() => onSendPrompt("Tell me about traveling to " + dest.city)}
-            className="group text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink rounded-xl"
+            className="group relative overflow-hidden rounded-3xl text-left shadow-1 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
           >
-            <div className="aspect-square w-full overflow-hidden rounded-xl">
+            <div className="aspect-square w-full overflow-hidden">
               <img
                 src={dest.image}
                 alt={dest.city}
-                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                 loading="lazy"
               />
             </div>
-            <h3 className="mt-2 text-[14px] font-bold text-ink">{dest.city}</h3>
-            <p className="text-[13px] text-text-secondary">{dest.description}</p>
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/85 via-ink/40 to-transparent p-4 pt-12">
+              <h3 className="text-[17px] font-bold text-on-dark">{dest.city}</h3>
+              <p className="text-[12.5px] text-on-dark/80">{dest.description}</p>
+            </div>
           </button>
         ))}
       </div>

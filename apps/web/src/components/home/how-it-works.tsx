@@ -43,7 +43,7 @@ export function HowItWorks() {
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
           {STEPS.map((step) => (
             <div key={step.number} className="text-center" data-animate>
-              <span className="mx-auto mb-3 block font-[family-name:var(--font-display)] text-[48px] font-light leading-none text-ink">
+              <span className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-coral to-amber font-[family-name:var(--font-display)] text-[24px] font-bold leading-none text-on-coral shadow-2">
                 {step.number}
               </span>
               <h3 className="text-[17px] font-bold text-ink">{step.headline}</h3>
@@ -62,7 +62,7 @@ export function HowItWorks() {
         <div className="mt-10 text-center">
           <button
             onClick={() => router.push("/chat")}
-            className="rounded-full bg-ink px-8 py-3 text-[14px] font-semibold text-on-dark transition-colors hover:bg-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+            className="rounded-full bg-gradient-to-r from-coral to-[#FF8A5C] px-8 py-3.5 text-[15px] font-bold text-on-coral shadow-[0_8px_20px_rgba(255,90,95,0.35)] transition-all hover:shadow-[0_10px_26px_rgba(255,90,95,0.45)] hover:brightness-105 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-coral"
           >
             Start chatting — it&apos;s free
           </button>
