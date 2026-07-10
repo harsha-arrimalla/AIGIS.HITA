@@ -1,12 +1,24 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/lib/auth-provider";
 import { HitaLogo } from "@/components/hita-logo";
 
 export default function SignInPage() {
+  return (
+    <Suspense fallback={null}>
+      <SignInForm />
+    </Suspense>
+  );
+}
+
+function SignInForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  // Only allow internal paths as redirect targets
+  const rawNext = searchParams.get("next") || "/";
+  const nextPath = rawNext.startsWith("/") && !rawNext.startsWith("//") ? rawNext : "/";
   const { signInWithEmail, signInWithPassword, signUp } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,7 +40,7 @@ export default function SignInPage() {
       } else if (mode === "password") {
         const { error } = await signInWithPassword(email, password);
         if (error) setError(error);
-        else router.push("/");
+        else router.push(nextPath);
       } else {
         const { error } = await signUp(email, password);
         if (error) setError(error);

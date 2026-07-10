@@ -1,7 +1,9 @@
 "use client";
 
 import { useRef, useEffect, useState, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import { MapPin, Shield, CloudSun, Compass } from "lucide-react";
+import { PlansModal } from "@/components/chat/plans-modal";
 import { useChat } from "@/hooks/use-chat";
 import { useAPI } from "@/lib/api-provider";
 import { useAuth } from "@/lib/auth-provider";
@@ -149,11 +151,56 @@ function StatusIndicator({ text }: { text: string }) {
 }
 
 export default function ChatPage() {
+  const router = useRouter();
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
   const { messages, isLoading, error, creditsRemaining, statusText, sessionId, sendMessage, retryLastMessage, clearMessages, loadConversation } = useChat(userLocation);
   const api = useAPI();
-  const { user } = useAuth();
+  const { user, isLoading: authLoading } = useAuth();
   const userId = user?.id || "00000000-0000-0000-0000-000000000000";
+  const [pendingMessage, setPendingMessage] = useState<string | null>(null);
+  const [plansMode, setPlansMode] = useState<"welcome" | "out" | null>(null);
+
+  // ── Gate 1: chat requires login ──
+  useEffect(() => {
+    if (!authLoading && !user) {
+      router.replace("/sign-in?next=/chat");
+    }
+  }, [authLoading, user, router]);
+
+  // ── Gate 2: first-time users see the plans before their first answer ──
+  const welcomeKey = user ? `hita-plans-welcomed-${user.id}` : null;
+  const guardedSend = useCallback(
+    (text: string) => {
+      if (welcomeKey && !localStorage.getItem(welcomeKey)) {
+        setPendingMessage(text);
+        setPlansMode("welcome");
+        return;
+      }
+      if (creditsRemaining !== null && creditsRemaining <= 0) {
+        setPendingMessage(text);
+        setPlansMode("out");
+        return;
+      }
+      sendMessage(text);
+    },
+    [welcomeKey, creditsRemaining, sendMessage],
+  );
+
+  const handleStartFree = useCallback(() => {
+    if (welcomeKey) localStorage.setItem(welcomeKey, "1");
+    setPlansMode(null);
+    if (pendingMessage) {
+      sendMessage(pendingMessage);
+      setPendingMessage(null);
+    }
+  }, [welcomeKey, pendingMessage, sendMessage]);
+
+  // ── Gate 3: out of credits mid-conversation ──
+  useEffect(() => {
+    if (creditsRemaining !== null && creditsRemaining <= 0 && messages.length > 0) {
+      setPlansMode((m) => m ?? "out");
+    }
+  }, [creditsRemaining, messages.length]);
   const bottomRef = useRef<HTMLDivElement>(null);
   const [initialSent, setInitialSent] = useState(false);
   const [selectedPlace, setSelectedPlace] = useState<PlaceData | null>(null);
@@ -199,14 +246,14 @@ export default function ChatPage() {
   }, []);
 
   useEffect(() => {
-    if (initialSent) return;
+    if (initialSent || !user) return; // wait for auth before consuming the pending message
     const initial = sessionStorage.getItem("hita-initial-message");
     if (initial) {
       sessionStorage.removeItem("hita-initial-message");
       setInitialSent(true);
-      sendMessage(initial);
+      guardedSend(initial);
     }
-  }, [initialSent, sendMessage]);
+  }, [initialSent, user, guardedSend]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -222,8 +269,24 @@ export default function ChatPage() {
     }
   }, []);
 
+  // Wait for auth before rendering anything (redirect handled above)
+  if (authLoading || !user) {
+    return (
+      <div className="flex h-screen items-center justify-center" style={{ backgroundColor: "var(--color-canvas)" }}>
+        <HitaLogo size={40} color="var(--color-coral)" />
+      </div>
+    );
+  }
+
   return (
     <div className="flex h-screen" style={{ backgroundColor: "var(--color-canvas)" }}>
+      {plansMode && (
+        <PlansModal
+          mode={plansMode}
+          onStartFree={handleStartFree}
+          onClose={plansMode === "out" ? () => setPlansMode(null) : undefined}
+        />
+      )}
       {/* ── Col 1: Chat ── */}
       <div className="relative flex flex-col min-w-0 w-full lg:w-[400px] lg:min-w-[360px] lg:max-w-[440px] lg:border-r lg:border-border-hairline">
         <ChatHeader
@@ -239,7 +302,7 @@ export default function ChatPage() {
         <main className="flex-1 overflow-y-auto" style={{ paddingBottom: 110 }}>
           <div className="mx-auto" style={{ maxWidth: 680, padding: "0 16px" }}>
             {messages.length === 0 ? (
-              <EmptyState onSend={sendMessage} />
+              <EmptyState onSend={guardedSend} />
             ) : (
               <div style={{ paddingTop: 20 }}>
                 {messages.map((msg, idx) => (
@@ -247,7 +310,7 @@ export default function ChatPage() {
                     key={msg.id}
                     message={msg}
                     isStreaming={isLoading && msg.role === "assistant" && idx === messages.length - 1}
-                    onSuggestionClick={sendMessage}
+                    onSuggestionClick={guardedSend}
                     userLocation={userLocation}
                     onPlaceSelect={handlePlaceSelect}
                     onRegenerate={msg.role === "assistant" && idx === messages.length - 1 ? retryLastMessage : undefined}
@@ -288,7 +351,7 @@ export default function ChatPage() {
           </div>
         </main>
 
-        <ChatInput onSend={sendMessage} isLoading={isLoading} />
+        <ChatInput onSend={guardedSend} isLoading={isLoading} />
       </div>
 
       {/* ── Col 2: Activity Details (only when a place is selected) ── */}
