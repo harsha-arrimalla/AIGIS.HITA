@@ -60,7 +60,7 @@ export function PlaceCard({
           {/* Heart button */}
           <button
             onClick={(e) => e.stopPropagation()}
-            className="absolute top-2 right-2 flex h-8 w-8 items-center justify-center rounded-full bg-white/80 text-text-secondary shadow-sm backdrop-blur-sm transition-all duration-200 hover:bg-white hover:text-ink hover:scale-110 active:scale-95 opacity-0 group-hover:opacity-100"
+            className="absolute top-2 right-2 flex h-8 w-8 items-center justify-center rounded-full bg-white/80 text-text-secondary shadow-sm backdrop-blur-sm transition-all duration-200 hover:bg-white hover:text-coral hover:scale-110 active:scale-95 opacity-0 group-hover:opacity-100"
             aria-label="Save"
           >
             <Heart className="h-4 w-4" strokeWidth={2} />
@@ -68,15 +68,15 @@ export function PlaceCard({
 
           {/* Rating badge — overlapping bottom of image */}
           {place.rating && (
-            <div className="absolute -bottom-3 left-2.5 flex items-center gap-1 rounded-full bg-ink px-2 py-0.5 shadow-sm">
-              <svg className="h-3 w-3 text-on-dark" viewBox="0 0 24 24" fill="currentColor">
+            <div className="absolute -bottom-3 left-2.5 flex items-center gap-1 rounded-full bg-amber px-2 py-0.5 shadow-sm">
+              <svg className="h-3 w-3 text-ink" viewBox="0 0 24 24" fill="currentColor">
                 <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
               </svg>
-              <span className="font-[family-name:var(--font-body)] text-[11px] font-bold text-on-dark">
+              <span className="font-[family-name:var(--font-body)] text-[11px] font-bold text-ink">
                 {place.rating}
               </span>
               {place.reviewCount && (
-                <span className="font-[family-name:var(--font-body)] text-[10px] text-on-dark/80">
+                <span className="font-[family-name:var(--font-body)] text-[10px] text-ink/70">
                   ({place.reviewCount})
                 </span>
               )}
@@ -104,7 +104,7 @@ export function PlaceCard({
           )}
           {place.hours && (
             <span className={`mt-1 inline-block rounded-full px-1.5 py-0.5 font-[family-name:var(--font-body)] text-[10px] font-semibold ${
-              place.hours === "Open now" ? "bg-tint text-ink" : "bg-tint text-tertiary"
+              place.hours === "Open now" ? "bg-[#E4F5EC] text-success" : "bg-tint text-tertiary"
             }`}>
               {place.hours}
             </span>

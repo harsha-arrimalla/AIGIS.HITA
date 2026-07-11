@@ -31,20 +31,23 @@ function EmptyState({ onSend }: { onSend: (text: string) => void }) {
       style={{ minHeight: "65vh", padding: "0 20px" }}
     >
       <div
-        className="flex items-center justify-center animate-breathe"
+        className="flex items-center justify-center animate-breathe rounded-3xl"
         style={{
           marginBottom: 24,
+          width: 76,
+          height: 76,
+          background: "linear-gradient(135deg, var(--color-coral-light), var(--color-amber-tint))",
         }}
       >
-        <HitaLogo size={48} color="var(--color-ink)" />
+        <HitaLogo size={42} color="var(--color-coral)" />
       </div>
 
       <h1
         className="animate-fade-up"
         style={{
           fontFamily: "var(--font-display)",
-          fontSize: 28,
-          fontWeight: 400,
+          fontSize: 30,
+          fontWeight: 700,
           lineHeight: 1.2,
           color: "var(--color-ink)",
           marginBottom: 8,
@@ -52,7 +55,7 @@ function EmptyState({ onSend }: { onSend: (text: string) => void }) {
           animationDelay: "100ms",
         }}
       >
-        How can I help?
+        Where to today?
       </h1>
       <p
         className="animate-fade-up"
@@ -131,7 +134,7 @@ function StatusIndicator({ text }: { text: string }) {
             style={{
               width: 5,
               height: 5,
-              backgroundColor: "var(--color-ink)",
+              backgroundColor: "var(--color-coral)",
             }}
           />
         ))}

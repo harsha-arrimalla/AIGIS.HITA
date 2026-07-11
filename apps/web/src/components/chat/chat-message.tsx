@@ -227,7 +227,7 @@ function StreamingContent({ content, isStreaming }: { content: string; isStreami
   return (
     <div>
       {renderMarkdown(content)}
-      <span className="ml-0.5 inline-block h-[1em] w-[2px] bg-ink align-text-bottom" style={{ animation: "gentle-pulse 0.8s ease-in-out infinite" }} />
+      <span className="ml-0.5 inline-block h-[1em] w-[2px] bg-coral align-text-bottom" style={{ animation: "gentle-pulse 0.8s ease-in-out infinite" }} />
     </div>
   );
 }
@@ -254,8 +254,8 @@ export function ChatMessage({
   if (isUser) {
     return (
       <div className="flex justify-end py-2 animate-msg-user">
-        <div className="max-w-[480px] rounded-[20px] rounded-br-[4px] bg-hover px-4 py-2.5">
-          <p className="font-[family-name:var(--font-body)] text-[15px] leading-[1.6] text-ink">
+        <div className="max-w-[480px] rounded-[20px] rounded-br-[4px] bg-gradient-to-br from-coral to-[#FF7A55] px-4 py-2.5 shadow-[0_4px_14px_rgba(255,90,95,0.25)]">
+          <p className="font-[family-name:var(--font-body)] text-[15px] leading-[1.6] text-on-coral">
             {message.content}
           </p>
         </div>
@@ -291,9 +291,9 @@ export function ChatMessage({
 
         {/* Transit card */}
         {message.uiAction?.type === "TransitCard" && (
-          <div className="mt-4 overflow-hidden rounded-2xl border border-border-hairline bg-canvas p-4 shadow-[0_1px_3px_rgba(0,0,0,0.04)] animate-scale-in">
+          <div className="mt-4 overflow-hidden rounded-2xl bg-raised p-4 shadow-2 animate-scale-in">
             <div className="flex items-center gap-2 font-[family-name:var(--font-body)] text-[14px] font-semibold text-ink">
-              <Bus className="h-4 w-4" strokeWidth={1.5} />
+              <Bus className="h-4 w-4 text-coral" strokeWidth={2} />
               <span>{message.uiAction.data.from as string}</span>
               <span className="text-tertiary">→</span>
               <span>{message.uiAction.data.to as string}</span>
@@ -308,9 +308,9 @@ export function ChatMessage({
 
         {/* Fare card */}
         {message.uiAction?.type === "FareCard" && (
-          <div className="mt-4 overflow-hidden rounded-2xl border border-border-hairline bg-canvas p-4 shadow-[0_1px_3px_rgba(0,0,0,0.04)] animate-scale-in">
+          <div className="mt-4 overflow-hidden rounded-2xl bg-raised p-4 shadow-2 animate-scale-in">
             <div className="flex items-center gap-2 font-[family-name:var(--font-body)] text-[14px] font-semibold text-ink">
-              <BadgeDollarSign className="h-4 w-4" strokeWidth={1.5} />
+              <BadgeDollarSign className="h-4 w-4 text-coral" strokeWidth={2} />
               <span>Fare Check</span>
             </div>
             {(message.uiAction.data.verdict as string) && (
@@ -333,7 +333,7 @@ export function ChatMessage({
               <button
                 key={i}
                 onClick={() => onSuggestionClick?.(s)}
-                className="animate-chip-in rounded-full border border-border-hairline bg-canvas px-3 py-1 font-[family-name:var(--font-body)] text-[12px] font-medium text-text-secondary transition-all duration-200 hover:border-ink/30 hover:text-ink hover:shadow-sm active:scale-95"
+                className="animate-chip-in rounded-full border border-border-soft bg-raised px-3.5 py-1.5 font-[family-name:var(--font-body)] text-[12.5px] font-semibold text-text-secondary transition-all duration-200 hover:border-coral hover:text-coral hover:shadow-1 active:scale-95"
                 style={{ animationDelay: `${i * 60}ms` }}
               >
                 {s}

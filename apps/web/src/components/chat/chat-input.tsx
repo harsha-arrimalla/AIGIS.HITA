@@ -99,10 +99,10 @@ export function ChatInput({
       <div className="mx-auto max-w-[720px] px-4">
         {/* Main input container */}
         <div
-          className={`overflow-hidden rounded-[24px] border bg-canvas transition-all duration-300 ${
+          className={`overflow-hidden rounded-[24px] border-2 bg-raised transition-all duration-300 ${
             focused
-              ? "border-border-soft shadow-[0_0_0_1px_rgba(0,0,0,0.04),0_6px_24px_rgba(0,0,0,0.06)] scale-[1.005]"
-              : "border-border-hairline shadow-[0_1px_4px_rgba(0,0,0,0.04)]"
+              ? "border-coral shadow-[0_0_0_4px_rgba(255,90,95,0.12),0_8px_28px_rgba(255,90,95,0.14)] scale-[1.005]"
+              : "border-transparent shadow-2"
           }`}
         >
           {/* Attachments preview */}
@@ -204,9 +204,9 @@ export function ChatInput({
               disabled={!canSend && !isLoading}
               className={`flex h-8 w-8 items-center justify-center rounded-full transition-all duration-200 active:scale-90 ${
                 isLoading
-                  ? "bg-ink text-on-dark animate-gentle-pulse"
+                  ? "bg-gradient-to-r from-coral to-[#FF8A5C] text-on-coral animate-gentle-pulse"
                   : canSend
-                    ? "bg-ink text-on-dark hover:bg-black hover:shadow-md hover:scale-105"
+                    ? "bg-gradient-to-r from-coral to-[#FF8A5C] text-on-coral shadow-[0_4px_12px_rgba(255,90,95,0.35)] hover:shadow-[0_6px_16px_rgba(255,90,95,0.45)] hover:scale-105"
                     : "bg-pressed text-tertiary"
               }`}
               aria-label={isLoading ? "Stop" : "Send"}

@@ -104,7 +104,7 @@ export function Sidebar({
         <div className="flex items-center justify-between px-4 pt-4 pb-2">
           <div className="flex items-center gap-2">
             <span className="flex items-center justify-center">
-              <HitaLogo size={22} color="var(--color-ink)" />
+              <HitaLogo size={22} color="var(--color-coral)" />
             </span>
             <span className="text-[15px] font-semibold tracking-tight text-ink">
               hita
@@ -132,9 +132,9 @@ export function Sidebar({
         <div className="px-3 pb-1 pt-1">
           <button
             onClick={onNew}
-            className="flex w-full items-center gap-2.5 rounded-xl border border-border-hairline bg-canvas px-3.5 py-2.5 text-[13px] font-medium text-ink shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all duration-200 hover:border-border-soft hover:shadow-[0_2px_6px_rgba(0,0,0,0.06)] active:scale-[0.97]"
+            className="flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-coral to-[#FF8A5C] px-3.5 py-2.5 text-[13.5px] font-bold text-on-coral shadow-[0_6px_16px_rgba(255,90,95,0.3)] transition-all duration-200 hover:shadow-[0_8px_20px_rgba(255,90,95,0.4)] hover:brightness-105 active:scale-[0.98]"
           >
-            <SquarePen size={15} strokeWidth={1.8} className="text-text-secondary" />
+            <SquarePen size={15} strokeWidth={2.2} />
             New conversation
           </button>
         </div>
@@ -187,11 +187,11 @@ export function Sidebar({
                       onMouseLeave={() => setHoveredId(null)}
                       className={`
                         group relative flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left transition-all duration-150
-                        ${isActive ? "bg-ink/5" : "hover:bg-hover"}
+                        ${isActive ? "bg-coral-light" : "hover:bg-hover"}
                       `}
                     >
                       <span
-                        className={`flex-1 truncate text-[13px] ${isActive ? "font-medium text-ink" : "text-ink"}`}
+                        className={`flex-1 truncate text-[13px] ${isActive ? "font-semibold text-coral" : "text-ink"}`}
                       >
                         {conv.title}
                       </span>

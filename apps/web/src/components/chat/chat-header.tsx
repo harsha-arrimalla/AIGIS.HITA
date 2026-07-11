@@ -1,8 +1,11 @@
 "use client";
 
-import { ArrowLeft, Plus, Menu, AlertTriangle } from "lucide-react";
+import { ArrowLeft, Plus, Menu, AlertTriangle, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { HitaLogo } from "@/components/hita-logo";
+
+const ICON_BTN =
+  "flex h-9 w-9 items-center justify-center rounded-full text-ink transition-all duration-150 hover:bg-tint active:scale-95";
 
 export function ChatHeader({
   creditsRemaining,
@@ -16,54 +19,21 @@ export function ChatHeader({
   onToggleSOS?: () => void;
 }) {
   return (
-    <header
-      className="sticky top-0 z-10 flex items-center justify-between"
-      style={{
-        height: 56,
-        padding: "0 16px",
-        backgroundColor: "var(--color-canvas)",
-        borderBottom: "1px solid var(--color-border-hairline)",
-      }}
-    >
-      <div className="flex items-center gap-1">
+    <header className="sticky top-0 z-10 flex h-14 items-center justify-between border-b border-border-hairline bg-canvas/85 px-3 backdrop-blur-md">
+      <div className="flex items-center gap-0.5">
         {onToggleSidebar && (
-          <button
-            onClick={onToggleSidebar}
-            className="flex items-center justify-center transition-colors"
-            style={{ width: 36, height: 36, borderRadius: "var(--radius-full)" }}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "var(--color-hover)")}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
-            aria-label="Toggle sidebar"
-          >
-            <Menu style={{ width: 18, height: 18, color: "var(--color-ink)" }} strokeWidth={1.5} />
+          <button onClick={onToggleSidebar} className={ICON_BTN} aria-label="Toggle sidebar">
+            <Menu className="h-[18px] w-[18px]" strokeWidth={2} />
           </button>
         )}
-        <Link
-          href="/"
-          className="flex items-center justify-center transition-colors"
-          style={{ width: 36, height: 36, borderRadius: "var(--radius-full)" }}
-          onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "var(--color-hover)")}
-          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
-          aria-label="Back"
-        >
-          <ArrowLeft style={{ width: 18, height: 18, color: "var(--color-ink)" }} strokeWidth={1.5} />
+        <Link href="/" className={ICON_BTN} aria-label="Back to home">
+          <ArrowLeft className="h-[18px] w-[18px]" strokeWidth={2} />
         </Link>
       </div>
 
       <div className="flex items-center gap-2">
-          <div
-            className="flex items-center justify-center"
-          >
-            <HitaLogo size={22} color="var(--color-ink)" />
-          </div>
-        <span
-          style={{
-            fontFamily: "var(--font-body)",
-            fontSize: 16,
-            fontWeight: 600,
-            color: "var(--color-ink)",
-          }}
-        >
+        <HitaLogo size={22} color="var(--color-coral)" />
+        <span className="font-[family-name:var(--font-display)] text-[17px] font-bold tracking-tight text-ink">
           hita
         </span>
       </div>
@@ -72,45 +42,24 @@ export function ChatHeader({
         {onToggleSOS && (
           <button
             onClick={onToggleSOS}
-            className="relative flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95"
-            style={{ width: 36, height: 36, borderRadius: "var(--radius-full)" }}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "var(--color-coral-tint)")}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
+            className="flex h-9 w-9 items-center justify-center rounded-full text-danger transition-all duration-150 hover:bg-coral-tint hover:scale-110 active:scale-95"
             aria-label="Emergency SOS"
           >
-            <AlertTriangle style={{ width: 16, height: 16, color: "var(--color-danger)" }} strokeWidth={2} />
+            <AlertTriangle className="h-4 w-4" strokeWidth={2.2} />
           </button>
         )}
         {creditsRemaining != null && (
           <Link
             href="/credits"
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: 11,
-              fontWeight: 500,
-              color: "var(--color-text-secondary)",
-              backgroundColor: "var(--color-hover)",
-              padding: "3px 8px",
-              borderRadius: "var(--radius-full)",
-              textDecoration: "none",
-              transition: "background-color 0.15s",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "var(--color-border-hairline)")}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "var(--color-hover)")}
+            className="flex items-center gap-1 rounded-full border border-coral-medium bg-coral-light px-3 py-1.5 text-[12px] font-bold text-coral transition-all duration-150 hover:shadow-1 hover:brightness-95"
             aria-label={`${creditsRemaining} credits remaining — buy more`}
           >
-            {creditsRemaining} credits
+            <Sparkles className="h-3 w-3" aria-hidden="true" />
+            {creditsRemaining}
           </Link>
         )}
-        <button
-          onClick={onNewChat}
-          className="flex items-center justify-center transition-colors"
-          style={{ width: 36, height: 36, borderRadius: "var(--radius-full)" }}
-          onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "var(--color-hover)")}
-          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
-          aria-label="New conversation"
-        >
-          <Plus style={{ width: 18, height: 18, color: "var(--color-ink)" }} strokeWidth={1.5} />
+        <button onClick={onNewChat} className={ICON_BTN} aria-label="New conversation">
+          <Plus className="h-[18px] w-[18px]" strokeWidth={2} />
         </button>
       </div>
     </header>
