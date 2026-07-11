@@ -24,6 +24,7 @@ interface AuthContextValue {
     email: string,
     password: string
   ) => Promise<{ error: string | null }>;
+  signInWithGoogle: (nextPath?: string) => Promise<{ error: string | null }>;
   signOut: () => Promise<void>;
 }
 
@@ -90,6 +91,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return { error: error?.message ?? null };
   }, []);
 
+  const signInWithGoogle = useCallback(async (nextPath?: string) => {
+    const supabase = createClient();
+    const next = nextPath && nextPath.startsWith("/") && !nextPath.startsWith("//") ? nextPath : "/";
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`,
+      },
+    });
+    return { error: error?.message ?? null };
+  }, []);
+
   const signOut = useCallback(async () => {
     const supabase = createClient();
     await supabase.auth.signOut();
@@ -104,6 +117,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         signInWithEmail,
         signInWithPassword,
         signUp,
+        signInWithGoogle,
         signOut,
       }}
     >
