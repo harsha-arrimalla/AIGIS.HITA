@@ -15,6 +15,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter, useLocalSearchParams } from "expo-router";
+import { LinearGradient } from "expo-linear-gradient";
 import { Feather } from "@expo/vector-icons";
 import { HitaLogo } from "@/components/hita-logo";
 import { useChat, type Message } from "@/hooks/use-chat";
@@ -65,21 +66,24 @@ function ChatBubble({
         </View>
       )}
       <View style={{ flexShrink: 1, maxWidth: "85%" }}>
-        <View
-          style={[
-            styles.bubble,
-            isUser ? styles.bubbleUser : styles.bubbleAssistant,
-          ]}
-        >
-          <Text
-            style={[
-              styles.bubbleText,
-              isUser ? styles.bubbleTextUser : styles.bubbleTextAssistant,
-            ]}
+        {isUser ? (
+          <LinearGradient
+            colors={[colors.coral, "#FF7A55"]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={[styles.bubble, styles.bubbleUser]}
           >
-            {message.content || "\u2026"}
-          </Text>
-        </View>
+            <Text style={[styles.bubbleText, styles.bubbleTextUser]}>
+              {message.content || "\u2026"}
+            </Text>
+          </LinearGradient>
+        ) : (
+          <View style={[styles.bubble, styles.bubbleAssistant]}>
+            <Text style={[styles.bubbleText, styles.bubbleTextAssistant]}>
+              {message.content || "\u2026"}
+            </Text>
+          </View>
+        )}
 
         {/* Place cards */}
         {message.places && message.places.length > 0 && (
@@ -189,8 +193,15 @@ function EmptyState({ onSend }: { onSend: (text: string) => void }) {
 
   return (
     <Animated.View style={[styles.emptyState, { opacity: fade }]}>
-      <HitaLogo size={40} color={colors.coral} />
-      <Text style={styles.emptyTitle}>How can I help?</Text>
+      <LinearGradient
+        colors={[colors.coralTint, colors.amberTint]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={styles.emptyLogoTile}
+      >
+        <HitaLogo size={38} color={colors.coral} />
+      </LinearGradient>
+      <Text style={styles.emptyTitle}>Where to today?</Text>
       <Text style={styles.emptySubtitle}>
         Ask about safety, directions, weather, or anything about your journey.
       </Text>
@@ -204,7 +215,7 @@ function EmptyState({ onSend }: { onSend: (text: string) => void }) {
               pressed && { backgroundColor: colors.hover },
             ]}
           >
-            <Feather name={s.icon} size={18} color={colors.textSecondary} style={{ marginBottom: 6 }} />
+            <Feather name={s.icon} size={18} color={colors.coral} style={{ marginBottom: 6 }} />
             <Text style={styles.suggestionLabel}>{s.label}</Text>
           </Pressable>
         ))}
@@ -282,7 +293,10 @@ export default function ChatScreen() {
         </View>
         <View style={styles.headerRight}>
           {creditsRemaining != null && (
-            <Text style={styles.creditsText}>{creditsRemaining}</Text>
+            <View style={styles.creditsPill}>
+              <Feather name="zap" size={10} color={colors.coral} />
+              <Text style={styles.creditsText}>{creditsRemaining}</Text>
+            </View>
           )}
         </View>
       </View>
@@ -360,12 +374,18 @@ export default function ChatScreen() {
             onPress={handleSend}
             disabled={isLoading || !input.trim()}
             style={({ pressed }) => [
-              styles.sendButton,
               (!input.trim() || isLoading) && styles.sendButtonDisabled,
               pressed && { transform: [{ scale: 0.9 }] },
             ]}
           >
-            <Feather name="arrow-up" size={18} color={colors.canvas} />
+            <LinearGradient
+              colors={[colors.coral, "#FF8A5C"]}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
+              style={styles.sendButton}
+            >
+              <Feather name="arrow-up" size={18} color="#FFFFFF" />
+            </LinearGradient>
           </Pressable>
         </View>
       </KeyboardAvoidingView>
@@ -418,10 +438,21 @@ const styles = StyleSheet.create({
     width: 36,
     alignItems: "flex-end",
   },
+  creditsPill: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 3,
+    backgroundColor: colors.coralTint,
+    borderWidth: 1,
+    borderColor: colors.coralLight,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: radii.full,
+  },
   creditsText: {
     fontSize: 11,
-    color: colors.textTertiary,
-    fontWeight: "500",
+    color: colors.coral,
+    fontWeight: "700",
   },
 
   /* Empty state */
@@ -431,13 +462,20 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingHorizontal: 32,
   },
+  emptyLogoTile: {
+    width: 72,
+    height: 72,
+    borderRadius: 24,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   emptyTitle: {
-    fontSize: 22,
-    fontWeight: "600",
+    fontSize: 26,
+    fontWeight: "700",
     color: colors.textPrimary,
-    marginTop: 16,
+    marginTop: 18,
     marginBottom: 6,
-    letterSpacing: -0.4,
+    letterSpacing: -0.5,
   },
   emptySubtitle: {
     fontSize: 14,
@@ -457,10 +495,9 @@ const styles = StyleSheet.create({
   suggestionCard: {
     width: "48%",
     padding: 16,
-    backgroundColor: colors.tint,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: colors.borderHairline,
+    backgroundColor: colors.bgRaised,
+    borderRadius: 16,
+    ...shadows.card,
   },
   suggestionLabel: {
     fontSize: 13,
@@ -502,8 +539,12 @@ const styles = StyleSheet.create({
     flexShrink: 1,
   },
   bubbleUser: {
-    backgroundColor: colors.coral,
     borderBottomRightRadius: 6,
+    shadowColor: colors.coral,
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.25,
+    shadowRadius: 8,
+    elevation: 3,
   },
   bubbleAssistant: {
     backgroundColor: colors.tint,
@@ -618,8 +659,8 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: colors.borderHairline,
-    backgroundColor: colors.canvas,
+    borderColor: colors.borderSoft,
+    backgroundColor: colors.bgRaised,
   },
   chipText: {
     fontSize: 13,

@@ -15,7 +15,7 @@ import { Feather } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import * as SecureStore from "@/lib/storage";
 import * as Location from "expo-location";
-import MapView, { Marker } from "@/components/MapView";
+import MapView, { Marker, type Region } from "@/components/MapView";
 import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetBackgroundProps,
