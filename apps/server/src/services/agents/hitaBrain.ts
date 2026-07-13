@@ -144,7 +144,7 @@ export async function* hitaBrainStream(
       prompt,
       systemInstruction: systemPrompt,
       temperature: 0.7,
-      maxTokens: 512,
+      maxTokens: 1024,
     });
   } catch (err) {
     console.error("[hitaBrain] Stream failed:", err);

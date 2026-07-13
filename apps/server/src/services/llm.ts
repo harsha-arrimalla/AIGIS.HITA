@@ -132,10 +132,16 @@ export interface GeminiOptions {
   systemInstruction?: string;
   maxTokens?: number;
   temperature?: number;
+  /**
+   * Gemini 2.5 thinking budget. Defaults to 0 (off) — thinking tokens are
+   * drawn from maxOutputTokens and can starve the visible reply, cutting it
+   * mid-sentence. Set >0 only for tasks that need deliberate reasoning.
+   */
+  thinkingBudget?: number;
 }
 
 export async function callGemini(options: GeminiOptions): Promise<string> {
-  const { prompt, systemInstruction, maxTokens, temperature = 0.3 } = options;
+  const { prompt, systemInstruction, maxTokens, temperature = 0.3, thinkingBudget = 0 } = options;
 
   const client = getGemini();
   const model = client.getGenerativeModel({
@@ -144,6 +150,8 @@ export async function callGemini(options: GeminiOptions): Promise<string> {
     generationConfig: {
       temperature,
       maxOutputTokens: maxTokens,
+      // Passed through to the v1beta API; not in the old SDK's types
+      ...({ thinkingConfig: { thinkingBudget } } as Record<string, unknown>),
     },
   });
 
@@ -175,7 +183,7 @@ export async function callGemini(options: GeminiOptions): Promise<string> {
 // -------------------------------------------------------------------------- //
 
 export async function* callGeminiStream(options: GeminiOptions): AsyncGenerator<string> {
-  const { prompt, systemInstruction, maxTokens, temperature = 0.3 } = options;
+  const { prompt, systemInstruction, maxTokens, temperature = 0.3, thinkingBudget = 0 } = options;
 
   const client = getGemini();
   const model = client.getGenerativeModel({
@@ -184,6 +192,8 @@ export async function* callGeminiStream(options: GeminiOptions): AsyncGenerator<
     generationConfig: {
       temperature,
       maxOutputTokens: maxTokens,
+      // Passed through to the v1beta API; not in the old SDK's types
+      ...({ thinkingConfig: { thinkingBudget } } as Record<string, unknown>),
     },
   });
 
@@ -199,6 +209,13 @@ export async function* callGeminiStream(options: GeminiOptions): AsyncGenerator<
     for await (const chunk of result.stream) {
       const text = chunk.text();
       if (text) yield text;
+    }
+
+    // Surface abnormal stops (MAX_TOKENS, RECITATION, SAFETY) — these cut
+    // the reply mid-sentence with no error thrown.
+    const finishReason = (await result.response).candidates?.[0]?.finishReason;
+    if (finishReason && finishReason !== "STOP") {
+      console.warn(`[llm] Gemini stream ended abnormally: ${finishReason}`);
     }
 
     const latency = Date.now() - startTime;
